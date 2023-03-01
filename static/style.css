@@ -1,8 +1,13 @@
-/* .side-pane{
-    display: flex;
-    flex-direction: column;
-} */
-
 .big-text{
     font-size: 22px;
+}
+.search{
+    display: flex;
+    align-items: center;
+    height: 45px;
+    gap: 15px;
+    background-color: rgb(236, 239, 241);
+}
+.search>input{
+    background-color: rgb(236, 239, 241);
 }
