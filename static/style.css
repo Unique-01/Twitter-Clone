@@ -1,0 +1,8 @@
+/* .side-pane{
+    display: flex;
+    flex-direction: column;
+} */
+
+.big-text{
+    font-size: 22px;
+}
