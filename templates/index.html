@@ -8,33 +8,6 @@
     {% if user.is_authenticated %}
         <h3>Welcome {{ request.user.username }}</h3>
     {% else %}
-        <section class="container-fluid mx-4 mt-1 row">
-            <div class="  side-pane col-md-2 mr-5 ">
-                <a href="" class="btn btn-light rounded-circle py-2">
-                    <img src="{% static 'twitter.svg' %}"
-                         alt="twitter"
-                         height="38"
-                         width="38"
-                         class=""/>
-                </a>
-                <br/>
-                <div class="mx-2 mt-2">
-                    <a href="{% url 'index' as index %}"
-                       class="btn btn-light rounded-pill big-text px-3 {% if request.path == index %}font-weight-bold{% endif %}"><i class="fa-solid fa-sharp fa-hashtag"></i>&nbsp;&nbsp;&nbsp;&nbsp;Explore</a>
-                    <a href="" class="btn btn-light rounded-pill big-text px-3"><i class="fa-solid fa-gear"></i>&nbsp;&nbsp;&nbsp;&nbsp;Settings</a>
-                </div>
-            </div>
-            <div class=" col-md-6 border border-top-0 ml-3">
-                <form action="" method="get">
-                    {% comment %} <input class="form-control rounded-pill "
-                           type="text"
-                           placeholder="&#xF002;  Search Twitter" style="font-family: Arial, Font Awesome;" /> {% endcomment %}
-                           <div class="form-control rounded-pill search pl-4 ml-1">
-                            <i class="fa fa-search"></i>
-                            <input type="text" placeholder="Search Twitter" class="border-0 form-control">
-                           </div>
-                </form>
-            </div>
-        </section>
+        {% include "non-authenticated.html" %}
     {% endif %}
 {% endblock content %}
