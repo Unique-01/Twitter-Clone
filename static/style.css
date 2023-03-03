@@ -81,3 +81,29 @@ body{
     margin-right: 10px;
     border: 1px solid rgb(185, 183, 183) ;
 }
+.modal-width{
+    min-width: 600px;
+}
+.mt-cust{
+    margin-top: -10px;
+}
+.ml-cust{
+    margin-left: -10px;
+}
+.mr-6{
+    margin-right: 11%;
+}
+.modal-login{
+    width: 65%;
+    /* margin-left: ; */
+}
+.cust-font{
+    font-size: 16.5px;
+}
+.dark-btn{
+    background-color: rgb(19, 18, 18);
+    color: white;
+}
+.line-height{
+    line-height: 15px;
+}
