@@ -1,5 +1,6 @@
 body{
-    width: 100%;
+    width: 98%;
+    font-family: 'Chirp', sans-serif;
 }
 .big-text{
     font-size: 22px;
@@ -14,10 +15,13 @@ body{
 .search>input{
     background-color: rgb(236, 239, 241);
 }
+.chirp-font{
+    font-family: 'Chirp', sans-serif;
+    /* font-family: 'ChirpExtended', sans-serif; */
+}
 .dark{
-    /* color: rgb(5, 5, 5); */
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 20px;
+    font-family: 'Chirp', sans-serif;
+    font-size: 21px;
 }
 .input:focus{
     outline: none !important;
@@ -26,5 +30,54 @@ body{
 .search:focus-within{
     background-color: white;
     box-shadow: 0px 0px 2px rgb(33, 107, 245);
-    /* border: 1px solid black; */
+}
+.rounded-o{
+    border-radius: 15px;
+}
+.new-to-twitter>div>p{
+    font-size: smaller;
+}
+.new-to-twitter{
+    width: 26%;
+    margin-left: 28px;
+}
+.col-md-5{
+    min-width: 44.5%;
+}
+.ml-4-9{
+    margin-left: 52px;
+}
+.mb-2-5{
+    margin-bottom: 12px;
+}
+.side-log{
+    width: 93.5%;
+}
+.font-normal{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    font-weight: bold;
+}
+.side-log-foot{
+    font-size: small;
+}
+.copyright{
+    font-size: 25px;
+}
+.dont-miss{
+    line-height: 1px;
+}
+.ml-6{
+    margin-left: 6%;
+}
+.blue{
+    background-color:#1DA1F2;
+}
+.p-2-5{
+    padding: 10px 0px 8px;
+}
+.px-3-5{
+    padding: 5px 14px;
+    margin-right: 10px;
+    border: 1px solid rgb(185, 183, 183) ;
 }
