@@ -98,7 +98,7 @@ body{
     /* margin-left: ; */
 }
 .cust-font{
-    font-size: 16.5px;
+    font-size: 15px;
 }
 .dark-btn{
     background-color: rgb(19, 18, 18);
@@ -106,4 +106,13 @@ body{
 }
 .line-height{
     line-height: 15px;
+}
+.login-btn{
+    width: 100%;
+}
+.mb-00{
+    margin-bottom: -30px;
+}
+.mt-00{
+    margin-top: -20px;
 }
