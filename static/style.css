@@ -116,3 +116,15 @@ body{
 .mt-00{
     margin-top: -20px;
 }
+.mx-3-5{
+    margin: 0px 20px;
+}
+.width{
+    max-width: 72%;
+}
+.ml-4-5{
+    margin-left: 3.5%;
+}
+.ml-00{
+    margin-left: -50px;
+}

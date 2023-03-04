@@ -6,7 +6,7 @@
 {% endblock head_title %}
 {% block content %}
     {% if user.is_authenticated %}
-        <h3>Welcome {{ request.user.username }}</h3>
+        {% include "authenticated.html" %}
     {% else %}
         {% include "non-authenticated.html" %}
         {% include "login-modal.html" %}
