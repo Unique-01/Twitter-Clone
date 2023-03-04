@@ -128,3 +128,9 @@ body{
 .ml-00{
     margin-left: -50px;
 }
+.home{
+    font-size: 20px;
+}
+.content-section{
+    display: none;
+}

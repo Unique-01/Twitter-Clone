@@ -8,7 +8,8 @@
         <div class="ml-2 ">
             <a href="{% url 'index' as index %}"
                 class=" btn btn-light rounded-pill big-text px-3 {% if request.path == index %}font-weight-bold{% endif %}"><i
-                    class="fa-solid fa-house"> </i>&nbsp;&nbsp;&nbsp;&nbsp;Home</a><br />
+                    class="fa-solid fa-house"> </i>&nbsp;&nbsp;&nbsp;&nbsp;Home</a>
+            <br />
             <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i
                     class="fa-solid fa-sharp fa-hashtag"></i>&nbsp;&nbsp;&nbsp;&nbsp;Explore</a>
             <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i
@@ -16,7 +17,8 @@
             <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i
                     class="fa-regular fa-envelope"></i>&nbsp;&nbsp;&nbsp;&nbsp;Messages</a>
             <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i
-                    class="fa-regular fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</a><br />
+                    class="fa-regular fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
+            <br />
             <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i
                     class="fa-solid fa-ellipsis"></i>&nbsp;&nbsp;&nbsp;&nbsp;More</a>
         </div>
@@ -24,8 +26,22 @@
             <a href="" class="btn text-white font-weight-bold">Tweet</a>
         </div>
     </div>
-
     <div class="border border-top-0 border-bottom-0 col-md-5 ml-00">
-sdhklajdlkas dkiasdlkasdkasj dlasjld lkj l
+        <div class="pt-3 border-bottom ">
+            <h4 class="mb-2 home font-weight-bold">Home</h4>
+            <div class="row ">
+                <button class="forfollow btn btn-light col-md-6 p-2 font-weight-bold" data-section="for-you" onclick="changeDiv(this)">
+                    For
+                    you
+                </button>
+                <button class="forfollow btn btn-light col-md-6 p-3 font-weight-bold"
+                    data-section="following" onclick="changeDiv(this)">Following</button>
+            </div>
+        </div>
+        <div id="divdiv">
+            
+        </div>
     </div>
+    <div class="content-section" id="for-you">{% include "for-you.html" %}</div>
+    <div class="content-section" id="following">{% include "following.html" %}</div>
 </section>
