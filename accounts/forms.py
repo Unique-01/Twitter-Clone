@@ -1,5 +1,7 @@
+from django import forms
 from allauth.account.forms import LoginForm,SignupForm
 from crispy_forms.helper import FormHelper
+from .models import Profile
 
 class CustomLoginForm(LoginForm):
 
@@ -12,6 +14,8 @@ class CustomLoginForm(LoginForm):
         self.fields["password"].label = ""
 
 class CustomSignupForm(SignupForm):
+    
+    dob = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
 
     def __init__(self, *args, **kwargs):
         super(CustomSignupForm, self).__init__(*args, **kwargs)
@@ -22,3 +26,11 @@ class CustomSignupForm(SignupForm):
         self.fields["password1"].label = ""
         self.fields["password2"].label = ""
         self.fields["email"].label = ""
+
+    def save(self,request):
+        user = super(CustomSignupForm,self).save(request)
+
+        profile = Profile.objects.get_or_create(user=user)
+        profile.dob=self.cleaned_data['dob']
+       
+

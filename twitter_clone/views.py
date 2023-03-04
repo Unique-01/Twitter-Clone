@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 # from allauth.account.forms import LoginForm
-from .forms import CustomLoginForm
+from accounts.forms import CustomLoginForm
 
 # class IndexView(generic.ListView):
 #     template_name ='index.html'

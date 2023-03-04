@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     # My apps
-    # 'accounts',
+    'accounts',
 ]
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
@@ -170,4 +170,6 @@ SOCIALACCOUNT_PROVIDERS={
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD='username_email'
+ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
