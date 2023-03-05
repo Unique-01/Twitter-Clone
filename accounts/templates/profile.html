@@ -14,27 +14,31 @@
                 </div>
                 <div class="ml-5">
                     <h5 class="text-capitalize font-weight-bold">{{ user.get_full_name }}</h5>
+                    <small class="text-muted">3 tweets</small>
                 </div>
             </div>
             <div>
-                <div>
-                    {% if user.profile.cover_photo %}
-                    <img src="{{user.profile.cover_photo.url}}" alt="" width="100%" height="200px"/>
-                    {% else %}{% endif %}
+                <div class="parent">
+                    <img src=" {% if user.profile.cover_photo %} {{ user.profile.cover_photo.url }} {% else %} {% static 'gray_img.png' %} {% endif %}"
+                         alt="."
+                         width="100%"
+                         height="200px"
+                         class="cover_image"/>
+                    
+                        <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                             alt="{{ user.username }}"
+                             class="rounded-circle profile_image"
+                             height="150"
+                             width="150"/>
+                    
+                       
+                    
                 </div>
-                <div>
-                    {% if user.profile.profile_picture %}
-                        <div >
-                            <img src="{{ user.profile.profile_picture.url }}"
-                                 alt="{{ user.username }}"
-                                 class="rounded-circle"
-                                 height="150"
-                                 width="150"/>
-                        </div>
-                    {% else %}
-                        <div>dkfjskdjkajdk</div>
-                    {% endif %}
-                </div>
+            </div>
+            <div class="float-right mt-2">
+                {% if user == request.user %}
+                    <a href="{% url 'profile_update' %}" class="btn rounded-pill btn-light border px-3 font-weight-bold">Edit profile</a>
+                {% endif %}
             </div>
         </div>
     </section>

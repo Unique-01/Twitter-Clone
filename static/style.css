@@ -134,3 +134,19 @@ body{
 .content-section{
     display: none;
 }
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.cover_image {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.profile_image {
+  position: absolute;
+  top: 130px;
+  left: 20px;
+  border: 4px white solid;
+}
