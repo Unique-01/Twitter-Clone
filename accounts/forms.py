@@ -4,6 +4,12 @@ from crispy_forms.helper import FormHelper
 from .models import Profile
 
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_picture','cover_photo','about','location']
+
+        
 class CustomLoginForm(LoginForm):
 
     def __init__(self, *args, **kwargs):
@@ -34,5 +40,7 @@ class CustomSignupForm(SignupForm):
         user = super(CustomSignupForm, self).save(request)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        profile = Profile.objects.get_or_create(user=user)
-        profile.dob = self.cleaned_data['dob']
+        dob = self.cleaned_data['dob']
+
+        Profile.objects.create(user=user,dob=dob)
+        return user
