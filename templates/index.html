@@ -1,15 +1,7 @@
-{% extends "base.html" %}
-{% load static %}
-{% block head_title %}
-    Explore /
-    Twitter
-{% endblock head_title %}
-{% block content %}
-    {% if user.is_authenticated %}
-        {% include "authenticated.html" %}
-    {% else %}
-        {% include "non-authenticated.html" %}
-        {% include "login-modal.html" %}
-        {% include "signup-modal.html" %}
-    {% endif %}
-{% endblock content %}
+{% if user.is_authenticated %}
+    {% include "authenticated.html" %}
+{% else %}
+    {% include "non-authenticated.html" %}
+    {% include "login-modal.html" %}
+    {% include "signup-modal.html" %}
+{% endif %}
