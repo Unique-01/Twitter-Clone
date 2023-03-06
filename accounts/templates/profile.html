@@ -35,6 +35,14 @@
                 {% if user == request.user %}
                     <a href="{% url 'profile_update' %}"
                        class="btn rounded-pill btn-light border px-3 font-weight-bold">Edit profile</a>
+                {% else %}
+                    {% if request.user.profile in user.profile.followers.all %}
+                        <a href="{% url 'followToggle' user.username %}"
+                           class="btn rounded-pill btn-light border px-3 font-weight-bold">Unfollow</a>
+                    {% else %}
+                        <a href="{% url 'followToggle' user.username %}"
+                           class="btn rounded-pill btn-light border px-3 font-weight-bold">Follow</a>
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="font-weight-bold mt-6 line-space">
@@ -94,6 +102,9 @@
                             <span>{{ user.profile.link|urlize }}</span>
                         </div>
                     {% endif %}
+                   
+                    {{user.profile.followers.count}}
+                    {{user.profile.following.count}}
                 </div>
             </div>
         </div>

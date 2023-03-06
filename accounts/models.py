@@ -10,8 +10,12 @@ class Profile(models.Model):
     # about = models.CharField(max_length=1000,null=True,blank=True)
     about = models.TextField()
     location = models.CharField(max_length=500,null=True,blank=True)
-    followers = models.ManyToManyField(User,related_name="followers")
+    following = models.ManyToManyField("self",related_name="followers",symmetrical=False)
     dob = models.DateField()
+    website = models.URLField(max_length=500,null=True,blank=True)
     link = models.CharField(max_length=500,null=True,blank=True)
+
+    def __str__(self):
+        return self.user.username
 
     

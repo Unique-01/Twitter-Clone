@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .forms import ProfileForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -14,6 +16,22 @@ def profile(request, username):
         'user': user,
         'username': username
     })
+
+
+def followToggle(request, username):
+    otheruser = User.objects.get(username=username)
+    requestuser = User.objects.get(username=request.user.username)
+    otheruserprofile = Profile.objects.get(user=otheruser)
+    requestuserprofile = Profile.objects.get(user=requestuser)
+    followers = otheruserprofile.followers.all()
+
+    if username != requestuser.username:
+        if requestuserprofile in followers:
+            otheruserprofile.followers.remove(requestuserprofile)
+        else:
+            otheruserprofile.followers.add(requestuserprofile.id)
+
+    return HttpResponseRedirect(reverse(profile, args=[otheruser.username]))
 
 
 @login_required
