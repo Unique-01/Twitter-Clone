@@ -1,31 +1,22 @@
-{% extends "base.html" %}
-{% load static %}
-{% block head_title %}
-    Twitter
-{% endblock head_title %}
-{% block content %}
-    <section class="row">
-        {% include "authenticated-left-pane.html" %}
-        <div class="border border-top-0 border-bottom-0 col-md-5 ml-00">
-            <div class="pt-3 border-bottom ">
-                <h4 class="mb-2 home font-weight-bold">Home</h4>
-                <div class="row ">
-                    <button class="forfollow btn btn-light col-md-6 p-2 font-weight-bold"
-                            data-section="for-you"
-                            onclick="changeDiv(this)">
-                        For
-                        you
-                    </button>
-                    <button class="forfollow btn btn-light col-md-6 p-3 font-weight-bold"
-                            data-section="following"
-                            onclick="changeDiv(this)">
-                        Following
-                    </button>
-                </div>
-            </div>
-            <div id="divdiv"></div>
+{% extends "authenticated-base.html" %}
+{% block maincontent %}
+    <div class="pt-3 border-bottom ">
+        <h4 class="mb-2 home font-weight-bold">Home</h4>
+        <div class="row ">
+            <button class="forfollow btn btn-light col-md-6 p-2 font-weight-bold"
+                    data-section="for-you"
+                    onclick="changeDiv(this)">
+                For
+                you
+            </button>
+            <button class="forfollow btn btn-light col-md-6 p-3 font-weight-bold"
+                    data-section="following"
+                    onclick="changeDiv(this)">
+                Following
+            </button>
         </div>
-        <div class="content-section" id="for-you">{% include "for-you.html" %}</div>
-        <div class="content-section" id="following">{% include "following.html" %}</div>
-    </section>
-{% endblock content %}
+    </div>
+    <div id="divdiv"></div>
+    <div class="content-section" id="for-you">{% include "for-you.html" %}</div>
+    <div class="content-section" id="following">{% include "following.html" %}</div>
+{% endblock maincontent %}
