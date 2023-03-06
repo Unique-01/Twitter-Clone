@@ -150,3 +150,13 @@ body{
   left: 20px;
   border: 4px white solid;
 }
+.mt-6{
+    margin-top: 15%;
+}
+.line-space{
+    line-height: 1%;
+}
+svg{
+    height: 20px;
+    color: gray;
+}

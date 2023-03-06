@@ -12,5 +12,6 @@ class Profile(models.Model):
     location = models.CharField(max_length=500,null=True,blank=True)
     followers = models.ManyToManyField(User,related_name="followers")
     dob = models.DateField()
+    link = models.CharField(max_length=500,null=True,blank=True)
 
     
