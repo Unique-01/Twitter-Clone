@@ -5,7 +5,7 @@
 {% endblock head_title %}
 {% block content %}
     <section class="row">
-        {% include "left-pane.html" %}
+        {% if request.user.is_authenticated %}{% include "authenticated-left-pane.html" %}{% else %}{% include "non-authenticated-left-pane.html" %}{% endif %}
         <div class="border border-top-0 border-bottom-0 col-md-5 ml-00">
             <div class="d-flex align-items-center mt-1">
                 <div>
@@ -36,12 +36,14 @@
                     <a href="{% url 'profile_update' %}"
                        class="btn rounded-pill btn-light border px-3 font-weight-bold">Edit profile</a>
                 {% else %}
-                    {% if request.user.profile in user.profile.followers.all %}
-                        <a href="{% url 'followToggle' user.username %}"
-                           class="btn rounded-pill btn-light border px-3 font-weight-bold">Unfollow</a>
-                    {% else %}
-                        <a href="{% url 'followToggle' user.username %}"
-                           class="btn rounded-pill btn-light border px-3 font-weight-bold">Follow</a>
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.profile in user.profile.followers.all %}
+                            <a href="{% url 'followToggle' user.username %}"
+                               class="btn rounded-pill btn-light border px-3 font-weight-bold">Unfollow</a>
+                        {% else %}
+                            <a href="{% url 'followToggle' user.username %}"
+                               class="btn rounded-pill dark-btn border px-3 font-weight-bold">Follow</a>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
             </div>
@@ -102,9 +104,14 @@
                             <span>{{ user.profile.link|urlize }}</span>
                         </div>
                     {% endif %}
-                   
-                    {{user.profile.followers.count}}
-                    {{user.profile.following.count}}
+                </div>
+                <div class="d-flex mt-2">
+                    <a href="">
+                        <span class="font-weight-bold text-dark">{{ user.profile.following.count }}</span>&nbsp;<span class="text-muted">Following</span>
+                    </a>
+                    <a href="" class="pl-3">
+                        <span class="font-weight-bold text-dark">{{ user.profile.followers.count }}</span>&nbsp;<span class="text-muted">Followers</span>
+                    </a>
                 </div>
             </div>
         </div>
