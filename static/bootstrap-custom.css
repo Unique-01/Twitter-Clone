@@ -1,0 +1,47 @@
+.col-md-5{
+    min-width: 44.5%;
+}
+.ml-4-9{
+    margin-left: 52px;
+}
+.mb-2-5{
+    margin-bottom: 12px;
+}
+.p-2-5{
+    padding: 10px 0px 8px;
+}
+.px-3-5{
+    padding: 5px 14px;
+    margin-right: 10px;
+    border: 1px solid rgb(185, 183, 183) ;
+}
+.ml-6{
+    margin-left: 6%;
+}
+.mt-cust{
+    margin-top: -10px;
+}
+.ml-cust{
+    margin-left: -10px;
+}
+.mr-6{
+    margin-right: 11%;
+}
+.mb-00{
+    margin-bottom: -30px;
+}
+.mt-00{
+    margin-top: -20px;
+}
+.mx-3-5{
+    margin: 0px 20px;
+}
+.ml-00{
+    margin-left: -50px;
+}
+.mt-6{
+    margin-top: 15%;
+}
+.mt-7{
+    margin-top: 30%;
+}

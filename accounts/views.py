@@ -10,7 +10,10 @@ from django.urls import reverse
 
 
 def profile(request, username):
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        user = None
 
     return render(request, 'profile.html', {
         'user': user,

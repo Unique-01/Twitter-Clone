@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
-{% url 'index' as index %}
-{% url 'profile' request.user.username as request_user_profile %}
 {% block head_title %}
     Twitter
 {% endblock head_title %}
 {% block content %}
-    <section class="row">
+    {% url 'profile' request.user.username as request_user_profile %}
+    <section class="row" id="content">
         <div class="col-md-3 ml-4-5 ">
             <a href="" class="btn btn-light rounded-circle ml-1 py-2">
                 <img src="{% static 'twitter.svg' %}"
@@ -17,13 +16,13 @@
             </a>
             <br />
             <div class="ml-2 ">
-                <a href=" {% url 'index' %}"
+                <a href=" {% url 'index' as index %}"
                    class=" btn btn-light rounded-pill big-text px-3 {% if request.path == index %}font-weight-bold{% endif %}"><i class="fa-solid fa-house"> </i>&nbsp;&nbsp;&nbsp;&nbsp;Home</a>
                 <br />
                 <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i class="fa-solid fa-sharp fa-hashtag"></i>&nbsp;&nbsp;&nbsp;&nbsp;Explore</a>
                 <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i class="fa-solid fa-bell"></i>&nbsp;&nbsp;&nbsp;&nbsp;Notifications</a>
                 <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i class="fa-regular fa-envelope"></i>&nbsp;&nbsp;&nbsp;&nbsp;Messages</a>
-                <a href="{% url 'profile' request.user.username %}"
+                <a href="{{ request_user_profile }}"
                    class="mt-1 btn btn-light rounded-pill big-text px-3 {% if request.path == request_user_profile %}font-weight-bold{% endif %}"><i class="{% if request.path == request_user_profile %}fa-solid {% else %}fa-regular{% endif %} fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
                 <br />
                 <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i class="fa-solid fa-ellipsis"></i>&nbsp;&nbsp;&nbsp;&nbsp;More</a>
@@ -31,8 +30,37 @@
             <div class="blue rounded-pill p-2 d-flex justify-content-center width mt-3 ">
                 <a href="" class="btn text-white font-weight-bold">Tweet</a>
             </div>
+            <div>
+                <a tabindex="0"
+                   role="button"
+                   data-toggle="popover"
+                   data-trigger="focus"
+                   title=""
+                   data-content="<a class='font-weight-bold text-dark btn btn-light' href='{% url 'account_logout' %}'>Log out @{{request.user.username}}</a>"
+                   data-placement="top"
+                   class="btn btn-light rounded-pill d-flex align-items-center justify-content-between width mt-7 py-2 pb-3">
+                    <div>
+                        <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                             alt="{{ user.username }}"
+                             class="rounded-circle "
+                             height="40"
+                             width="40"/>
+                    </div>
+                    <div class="line-space">
+                        <div>
+                            <h6>{{ request.user.get_full_name|truncatechars:"15" }}</h6>
+                        </div>
+                        <div class="float-left">
+                            <span class="text-muted">@{{ request.user.username }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <i class="fa fa-ellipsis"></i>
+                    </div>
+                </a>
+            </div>
         </div>
-        <div class="border border-top-0 border-bottom-0 col-md-5 ml-00">
+        <div class="border border-top-0 border-bottom-0 col-md-5 ml-00 independent-scroll">
             {% block maincontent %}
             {% endblock maincontent %}
         </div>
