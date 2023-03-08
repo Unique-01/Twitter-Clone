@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Tweet,TweetMedia
 from . forms import TweetForm
 from django.contrib import messages

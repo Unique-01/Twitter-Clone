@@ -1,0 +1,7 @@
+{% load crispy_forms_tags %}
+
+<form action="{% url 'tweet_upload' %}" method="post">
+    {% csrf_token %}
+    {{tweet_form|crispy}}
+    <button>Tweet</button>
+</form>
