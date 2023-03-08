@@ -135,3 +135,7 @@ body {
   overflow: scroll;
   margin-bottom: 0px;
 }
+
+.hidden {
+  display: none;
+}

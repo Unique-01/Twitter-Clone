@@ -1,7 +1,8 @@
 {% load crispy_forms_tags %}
 
-<form action="{% url 'tweet_upload' %}" method="post">
+<form action="{% url 'tweet_upload' %}" id="tweetForm" method="post">
     {% csrf_token %}
     {{tweet_form|crispy}}
+    {% comment %} {{tweet_form.content|as_crispy_field}} {% endcomment %}
     <button>Tweet</button>
 </form>
