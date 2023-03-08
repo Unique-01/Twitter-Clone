@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
     # My apps
     'accounts',
+    'tweetapp'
 ]
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
