@@ -139,3 +139,22 @@ body {
 .hidden {
   display: none;
 }
+.content-box{
+  max-height: 60px;
+  /* font-size: larger; */
+}
+#id_content{
+  max-height: 60px;
+  font-size: larger;
+  border: none;
+}
+#id_content:focus{
+  outline: none !important;
+  box-shadow: none;
+}
+.seen_by {
+  border: 1px solid #1da1f2;
+  color:#1da1f2;
+  max-width: 110px;
+  /* padding-bottom: -20px; */
+}

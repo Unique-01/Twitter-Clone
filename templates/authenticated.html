@@ -17,13 +17,15 @@
             </button>
         </div>
     </div>
-    <div class="d-flex">
+    <div class="d-flex p-2">
         <div>
-            <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
-                             alt="{{ user.username }}"
-                             class="rounded-circle "
-                             height="40"
-                             width="40"/>
+            <a href="{% url 'profile' request.user.username %}">
+                <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                     alt="{{ user.username }}"
+                     class="rounded-circle mt-3"
+                     height="40"
+                     width="40"/>
+            </a>
         </div>
         {% include 'tweet_form.html' %}
     </div>

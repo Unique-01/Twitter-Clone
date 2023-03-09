@@ -9,4 +9,9 @@ class TweetForm(forms.ModelForm):
         self.fields['seen_by'].label = ""
     class Meta:
         model = Tweet
-        fields = ['content','seen_by']
+        fields = ['seen_by','content']
+        widgets = {
+            'content':forms.Textarea(
+                attrs={'placeholder':"What's happening?"}
+            )
+        }
