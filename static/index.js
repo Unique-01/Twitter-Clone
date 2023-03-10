@@ -26,3 +26,47 @@ content.onkeyup = function inputEmptyOrNot() {
         tweetBtn.removeAttribute('disabled');
     }
 }
+
+const previewContainer = document.getElementById('preview-container');
+const fileInput = document.getElementById('file-input');
+
+fileInput.addEventListener('change', function() {
+  const files = this.files;
+  const fileCount = files.length;
+  
+  for (let i = 0; i < fileCount; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const previewImageContainer = document.createElement('div');
+      previewImageContainer.classList.add('preview-image-container');
+      const previewImage = document.createElement('img');
+      previewImage.classList.add('preview-image');
+      previewImage.src = event.target.result;
+      previewImageContainer.appendChild(previewImage);
+      const deleteButton = document.createElement('button');
+      deleteButton.classList.add('delete-button');
+      deleteButton.innerHTML = 'X';
+      previewImageContainer.appendChild(deleteButton);
+      previewContainer.appendChild(previewImageContainer);
+      
+      const columnCount = Math.ceil(Math.sqrt(fileCount));
+      previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+      const rowCount = Math.ceil(fileCount / columnCount);
+      previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+previewContainer.addEventListener('click', function(event) {
+  if (event.target.classList.contains('delete-button')) {
+    event.target.parentNode.remove();
+    const remainingImages = document.querySelectorAll('.preview-image');
+    const fileCount = remainingImages.length;
+    const columnCount = Math.ceil(Math.sqrt(fileCount));
+    previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+    const rowCount = Math.ceil(fileCount / columnCount);
+    previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
+  }
+});

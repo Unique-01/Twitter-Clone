@@ -1,6 +1,13 @@
 {% load crispy_forms_tags %}
-<form action="{% url 'tweet_upload' %}" id="tweetForm" method="post">
+<form action="{% url 'tweet_upload' %}" id="tweetForm" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ tweet_form|crispy }}
+    <!-- <div class="input-images"></div> -->
+    <div class="container">
+        <div id="preview-container"></div>
+        <label for="file-input" class="file-label">Choose files</label>
+        <input type="file" id="file-input" class="file-input" multiple>
+      </div>
+      
     <button class="btn blue rounded-pill text-white float-right font-weight-bold" id="tweet-submit-button" disabled>Tweet</button>
 </form>

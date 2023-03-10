@@ -147,6 +147,7 @@ body {
   max-height: 60px;
   font-size: larger;
   border: none;
+  resize: none;
 }
 #id_content:focus{
   outline: none !important;
@@ -157,4 +158,55 @@ body {
   color:#1da1f2;
   max-width: 110px;
   /* padding-bottom: -20px; */
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#preview-container {
+  display: grid;
+  grid-gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.preview-image-container {
+  position: relative;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 12px;
+  color: #444;
+  border: none;
+  cursor: pointer;
+}
+
+.file-label {
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: 2px solid #4c4c4c;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.file-input {
+  display: none;
 }
