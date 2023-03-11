@@ -10,7 +10,7 @@ def tweetUpload(request):
     tweet_form = TweetForm()
     if request.method == 'POST':
         tweet_form = TweetForm(request.POST)
-        images = request.FILES.getlist('images[]')
+        images = request.FILES.getlist('images')
         if tweet_form.is_valid():
             new_tweet = tweet_form.save(commit=False)
             new_tweet.author = request.user

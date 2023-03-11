@@ -18,7 +18,7 @@
               crossorigin="anonymous"/>
         <link rel="stylesheet" href="{% static 'style.css' %}" />
         <link rel="stylesheet" href="{% static 'bootstrap-custom.css' %}">
-        <link rel="stylesheet" href="{% static 'image-uploader/image-uploader.min.css' %}">
+        {% comment %} <link rel="stylesheet" href="{% static 'image-uploader/image-uploader.min.css' %}"> {% endcomment %}
         <script src="https://kit.fontawesome.com/2115e6b1cf.js"
                 crossorigin="anonymous"></script>
         {% comment %}
@@ -42,7 +42,7 @@
                 integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
                 crossorigin="anonymous"></script>
         <script src="{% static 'index.js' %}"></script>
-        <script src="{% static 'image-uploader/image-uploader.min.js' %}"></script>
+        {% comment %} <script src="{% static 'image-uploader/image-uploader.min.js' %}"></script> {% endcomment %}
         <script>$(document).ready(function(){$('.input-images').imageUploader();});</script>
         <script>
         $(function () {

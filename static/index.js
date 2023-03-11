@@ -27,12 +27,22 @@ content.onkeyup = function inputEmptyOrNot() {
     }
 }
 
+// tweet image upload with preview and delete
 const previewContainer = document.getElementById('preview-container');
 const fileInput = document.getElementById('file-input');
+const maxUploads = 4; // Set the maximum number of uploads here
 
 fileInput.addEventListener('change', function() {
   const files = this.files;
   const fileCount = files.length;
+  const existingImages = previewContainer.querySelectorAll('.preview-image-container').length;
+  const remainingUploads = maxUploads - existingImages;
+  
+  if (fileCount > remainingUploads) {
+    alert(`You can upload a maximum of ${maxUploads} files.`);
+    fileInput.value = null;
+    return;
+  }
   
   for (let i = 0; i < fileCount; i++) {
     const file = files[i];
@@ -50,9 +60,10 @@ fileInput.addEventListener('change', function() {
       previewImageContainer.appendChild(deleteButton);
       previewContainer.appendChild(previewImageContainer);
       
-      const columnCount = Math.ceil(Math.sqrt(fileCount));
+      const imageCount = previewContainer.querySelectorAll('.preview-image-container').length;
+      const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
       previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
-      const rowCount = Math.ceil(fileCount / columnCount);
+      const rowCount = Math.ceil(imageCount / columnCount);
       previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
     };
     reader.readAsDataURL(file);
@@ -63,10 +74,10 @@ previewContainer.addEventListener('click', function(event) {
   if (event.target.classList.contains('delete-button')) {
     event.target.parentNode.remove();
     const remainingImages = document.querySelectorAll('.preview-image');
-    const fileCount = remainingImages.length;
-    const columnCount = Math.ceil(Math.sqrt(fileCount));
+    const imageCount = remainingImages.length;
+    const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
     previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
-    const rowCount = Math.ceil(fileCount / columnCount);
+    const rowCount = Math.ceil(imageCount / columnCount);
     previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
   }
 });
