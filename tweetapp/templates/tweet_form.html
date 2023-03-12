@@ -1,0 +1,32 @@
+{% load crispy_forms_tags %}
+<form action="{% url 'tweet_upload' %}"
+      id="tweetForm"
+      method="post"
+      enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="border-bottom">
+        {{ tweet_form|crispy }}
+    </div>
+    <div class="">
+        <div class="container">
+            <div id="preview-container"></div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between py-2 pl-3">
+            <label for="file-input" class="file-label">
+                {% comment %} <i class="fas fa-camera"></i> {% endcomment %}
+                <i class="fa-regular fa-image"></i>
+                <input type="file"
+                       id="file-input"
+                       class="file-input"
+                       accept="image/*"
+                       name="images"
+                       multiple/>
+            </label>
+            <button type="submit" class="btn blue rounded-pill text-white px-3  font-weight-bold"
+                    id="tweet-submit-button"
+                    disabled>Tweet</button>
+
+                    
+        </div>
+    </div>
+</form>

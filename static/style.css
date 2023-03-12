@@ -144,7 +144,7 @@ body {
   /* font-size: larger; */
 }
 #id_content{
-  max-height: 60px;
+  max-height: 50px;
   font-size: larger;
   border: none;
   resize: none;
@@ -174,13 +174,14 @@ padding: 0;
 border: none; /* Remove border */
 cursor: pointer;
 font-size: 0;
-width: 30px; /* Reduce width */
-height: 30px; /* Reduce height */
+width: 0px; /* Reduce width */
+height: 0; /* Reduce height */
 
 }
 
 .file-label i {
-font-size: 15px; /* Reduce icon size */
+  /* height: 20px; */
+font-size: 20px; /* Reduce icon size */
 color:#1da1f2
 }
 
