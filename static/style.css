@@ -157,7 +157,10 @@ body {
   border: 1px solid #1da1f2;
   color:#1da1f2;
   max-width: 110px;
-  /* padding-bottom: -20px; */
+  background-color: white;
+}
+.seen_by:hover{
+  background-color: rgba(29, 155, 240, 0.1);
 }
 
 .container {

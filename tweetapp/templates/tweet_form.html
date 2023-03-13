@@ -5,7 +5,8 @@
       enctype="multipart/form-data">
     {% csrf_token %}
     <div class="border-bottom">
-        {{ tweet_form|crispy }}
+        <div id="seen_by_container">{{tweet_form.seen_by|as_crispy_field}}</div>
+        <div>{{tweet_form.content|as_crispy_field}}</div>
     </div>
     <div class="">
         <div class="container">
