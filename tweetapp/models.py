@@ -14,6 +14,8 @@ class Tweet(models.Model):
     updated = models.DateTimeField(auto_now=True)
     seen_by = models.CharField(max_length=17,choices=SEEN_BY_CHOICES,default='')
 
+    # @property()
+
 
 class TweetMedia(models.Model):
     tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE,related_name='tweet_media')

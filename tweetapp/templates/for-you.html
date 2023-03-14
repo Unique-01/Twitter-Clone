@@ -1,4 +1,6 @@
-{% for tweet in tweets %}
-{{tweet.author}}
-{{tweet.content}}
-{% endfor %}
+{% load static %}
+<section>
+    {% for tweet in shuffled_tweets %}
+        {% include "tweets.html" %}
+    {% endfor %}
+</section>

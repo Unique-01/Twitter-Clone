@@ -1,1 +1,5 @@
-this is folloe=wing page
+{% for tweet in shuffled_tweets %}
+    {% if request.user.profile in tweet.author.profile.followers.all %}
+        {% include "tweets.html" %}
+    {% endif %}
+{% endfor %}

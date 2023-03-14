@@ -9,12 +9,20 @@ const imageDiv = document.getElementById('preview-container');
 const tweetForm = document.getElementById('tweetForm');
 const formData = new FormData();
 const fileObjects = []; // Array to store the File objects
+const tweetDisplay = document.getElementById('tweet-display');
+const forYouTweet = document.getElementById('for-you')
+tweetDisplay.innerHTML = forYouTweet.innerHTML
+
 
 function changeDiv(e) {
-  const target = document.getElementById('divdiv');
+  document.getElementById('maincontent').scrollTop = 0;
   const section = e.getAttribute('data-section');
-  console.log(section);
-  target.innerHTML = document.getElementById(section).innerHTML;
+  tweetDisplay.innerHTML = document.getElementById(section).innerHTML;
+
+  if (tweetDisplay.innerHTML = document.getElementById(section).innerHTML) {
+    document.getElementById('maincontent').scrollTop = 0;
+
+  }
 }
 
 seenByContainer.classList.add('hidden');
@@ -125,4 +133,11 @@ tweetForm.addEventListener('submit', async (event) => {
   });
 
   // handle the response
+  if (response.ok) {
+    // redirect to the desired URL
+    window.location.href = '/';
+  } else {
+    // handle the error
+    console.log('Error:', response.statusText);
+  }
 });
