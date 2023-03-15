@@ -39,16 +39,13 @@
             <a href="" class="text-dark text-decoration-none">
                 <p>{{ tweet.content|urlize|linebreaksbr }}</p>
             </a>
-            <div id="image-container">
-                
-                    {% for img in tweet.tweet_media.all %}
+            <div class="image-container">
+                {% for img in tweet.tweet_media.all %}
                     <div class="tweet-image-container">
-                <img class="tweet-image" src="{{img.image.url}}" alt=""/>
-                </div>
+                        <img class="tweet-image" src="{{ img.image.url }}" alt=""/>
+                    </div>
                 {% endfor %}
-                
             </div>
         </div>
     </div>
 </div>
-
