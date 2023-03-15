@@ -1,5 +1,5 @@
 {% load static %}
-<div>
+<div class="d-flex border-top tweet">
     <div>
         <a href="{% url 'profile' tweet.author.username %}">
             <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
@@ -9,23 +9,32 @@
                  width="45"/>
         </a>
     </div>
-    <div>
-        <h6>{{ tweet.author.get_full_name }}</h6>
-        <p>@{{ tweet.author.username }}</p>
-        <span>
-            {% if tweet.created.date < now.date %}
-                {% if tweet.created.date == yesterday %}
-                    {% if now.time >= tweet.created.time %}
-                        {{ tweet.created|date:"M d" }}
-                    {% else %}
-                        {{ tweet.created|timesince|slice:"4" }}
-                    {% endif %}
-                {% else %}
+    <div class="ml-3 w-100">
+        <div class="d-inline-flex align-items-center justify-content-between">
+        <a href="{% url 'profile' tweet.author.username %}" class="text-dark"><span class="mr-3 font-weight-bold">{{ tweet.author.get_full_name }}</span>
+        <span class="text-decoration-none text-muted">@{{ tweet.author.username }}</span></a>
+    <span>&dot;</span>
+    <span class="text-muted">
+        {% if tweet.created.date < now.date %}
+            {% if tweet.created.date == yesterday %}
+                {% if now.time >= tweet.created.time %}
                     {{ tweet.created|date:"M d" }}
+                {% else %}
+                    {{ tweet.created|timesince|slice:"4" }}
                 {% endif %}
             {% else %}
-                {{ tweet.created|timesince|slice:"4" }}
+                {{ tweet.created|date:"M d" }}
             {% endif %}
-        </span>
-    </div>
+        {% else %}
+            {{ tweet.created|timesince|slice:"4" }}
+        {% endif %}
+    </span>
+    <span class="text-muted"><i class="fa-solid fa-ellipsis"></i></span>
+</div>
+<div>
+    <a href="" class="">
+        <p>{{ tweet.content|urlize|linebreaksbr }}</p>
+    </a>
+</div>
+</div>
 </div>

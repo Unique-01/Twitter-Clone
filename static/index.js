@@ -7,10 +7,11 @@ const content = document.getElementById('id_content');
 const tweetBtn = document.getElementById('tweet-submit-button');
 const imageDiv = document.getElementById('preview-container');
 const tweetForm = document.getElementById('tweetForm');
+const tweetFormFieldContainer = document.getElementById('form-field-container');
 const formData = new FormData();
 const fileObjects = []; // Array to store the File objects
 const tweetDisplay = document.getElementById('tweet-display');
-const forYouTweet = document.getElementById('for-you')
+const forYouTweet = document.getElementById('for-you');
 tweetDisplay.innerHTML = forYouTweet.innerHTML
 
 
@@ -28,8 +29,9 @@ function changeDiv(e) {
 seenByContainer.classList.add('hidden');
 content.onclick = function () {
   seenByContainer.classList.remove('hidden');
-  seen_by.className='';
+  seen_by.className = '';
   seen_by.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'py-0', 'pl-1', 'ml-3');
+  tweetFormFieldContainer.classList.add('border-bottom')
 };
 
 function inputEmptyOrNot() {
@@ -113,19 +115,19 @@ previewContainer.addEventListener('click', function (event) {
     previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
     const rowCount = Math.ceil(imageCount / columnCount);
     previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
-   
+
   }
   inputEmptyOrNot()
-  
+
 });
 
 tweetForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value; // get the CSRF token value from the hidden input field in your form
   formData.append('csrfmiddlewaretoken', csrfToken);
-  formData.append('content',content.value);
+  formData.append('content', content.value);
   const selectedOptionSeenBy = seen_by.options[seen_by.selectedIndex]
-  formData.append('seen_by',selectedOptionSeenBy.value)
+  formData.append('seen_by', selectedOptionSeenBy.value)
 
   const response = await fetch('/upload_tweet/', {
     method: 'POST',
