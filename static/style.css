@@ -193,7 +193,7 @@ color:#1da1f2
   display: none;
 }
 
-#preview-container {
+#preview-container,#image-container {
   display: grid;
   grid-gap: 10px;
   width: 100%;
@@ -201,14 +201,14 @@ color:#1da1f2
   grid-template-columns: repeat(2, 1fr);
 }
 
-.preview-image-container {
+.preview-image-container,.tweet-image-container {
   position: relative;
   width: 100%;
   height: 0;
   padding-bottom: 70%; /* Set the height based on width */
 }
 
-.preview-image {
+.preview-image,.tweet-image {
   position: absolute;
   top: 0;
   left: 0;

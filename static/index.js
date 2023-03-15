@@ -143,3 +143,18 @@ tweetForm.addEventListener('submit', async (event) => {
     console.log('Error:', response.statusText);
   }
 });
+
+// const imageContainer = document.getElementById('image-container');
+    
+// function tweetImage() {
+//   const imageCount = imageContainer.querySelectorAll('.tweet-image-container').length;
+//   const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
+//   imageContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+//   const rowCount = Math.ceil(imageCount / columnCount);
+//   imageContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
+//   console.log(imageCount);
+// }
+
+// // Call the function once to set the initial grid layout
+// tweetImage();
+

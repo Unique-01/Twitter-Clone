@@ -10,31 +10,45 @@
         </a>
     </div>
     <div class="ml-3 w-100">
-        <div class="d-inline-flex align-items-center justify-content-between">
-        <a href="{% url 'profile' tweet.author.username %}" class="text-dark"><span class="mr-3 font-weight-bold">{{ tweet.author.get_full_name }}</span>
-        <span class="text-decoration-none text-muted">@{{ tweet.author.username }}</span></a>
-    <span>&dot;</span>
-    <span class="text-muted">
-        {% if tweet.created.date < now.date %}
-            {% if tweet.created.date == yesterday %}
-                {% if now.time >= tweet.created.time %}
-                    {{ tweet.created|date:"M d" }}
-                {% else %}
-                    {{ tweet.created|timesince|slice:"4" }}
-                {% endif %}
-            {% else %}
-                {{ tweet.created|date:"M d" }}
-            {% endif %}
-        {% else %}
-            {{ tweet.created|timesince|slice:"4" }}
-        {% endif %}
-    </span>
-    <span class="text-muted"><i class="fa-solid fa-ellipsis"></i></span>
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <a href="{% url 'profile' tweet.author.username %}" class="text-dark">
+                    <span class="mr-3 font-weight-bold">{{ tweet.author.get_full_name }}</span>
+                    <span class="text-decoration-none text-muted">@{{ tweet.author.username }}</span>
+                </a>
+                <span class="px-2">&dot;</span>
+                <span class="text-muted">
+                    {% if tweet.created.date < now.date %}
+                        {% if tweet.created.date == yesterday %}
+                            {% if now.time >= tweet.created.time %}
+                                {{ tweet.created|date:"M d" }}
+                            {% else %}
+                                {{ tweet.created|timesince|slice:"4" }}
+                            {% endif %}
+                        {% else %}
+                            {{ tweet.created|date:"M d" }}
+                        {% endif %}
+                    {% else %}
+                        {{ tweet.created|timesince|slice:"4" }}
+                    {% endif %}
+                </span>
+            </div>
+            <span class="text-muted btn btn-light  rounded-circle"><i class="fa-solid fa-ellipsis"></i></span>
+        </div>
+        <div>
+            <a href="" class="text-dark text-decoration-none">
+                <p>{{ tweet.content|urlize|linebreaksbr }}</p>
+            </a>
+            <div id="image-container">
+                
+                    {% for img in tweet.tweet_media.all %}
+                    <div class="tweet-image-container">
+                <img class="tweet-image" src="{{img.image.url}}" alt=""/>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a href="" class="">
-        <p>{{ tweet.content|urlize|linebreaksbr }}</p>
-    </a>
-</div>
-</div>
-</div>
+
