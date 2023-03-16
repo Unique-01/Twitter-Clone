@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Tweet,TweetMedia
 from . forms import TweetForm
 from django.contrib import messages
-
+from django.views import generic
 # Create your views here.
 
 def tweetUpload(request):
@@ -21,4 +21,9 @@ def tweetUpload(request):
                 tweet_image.save()
             messages.success(request, "Tweet has been uploaded ")
             return redirect("index")
+
+
+class TweetDetail(generic.DetailView):
+    model = Tweet
+    template_name = 'tweet_detail.html'
             
