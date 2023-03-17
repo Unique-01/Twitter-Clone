@@ -1,16 +1,14 @@
 {% load static %}
-<div class="d-flex border-top tweet">
-    <a href="{% url 'tweet_detail' tweet.author.username tweet.id %}">
+<div class="d-flex border-top tweet pb-4 tweet-container" id="tweet-container">
+    {% comment %} <a href="{% url 'tweet_detail' tweet.author.username tweet.id %}"> {% endcomment %}
         <div>
-            <object data="" type="">
-                <a href="{% url 'profile' tweet.author.username %}">
-                    <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
-                         alt="{{ tweet.author.username }}"
-                         class="rounded-circle mt-2"
-                         height="45"
-                         width="45"/>
-                </a>
-            </object>
+            <a href="{% url 'profile' tweet.author.username %}">
+                <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                     alt="{{ tweet.author.username }}"
+                     class="rounded-circle mt-2"
+                     height="45"
+                     width="45"/>
+            </a>
         </div>
         <div class="ml-3 w-100">
             <div class="d-flex align-items-center justify-content-between">
@@ -36,24 +34,27 @@
                         {% endif %}
                     </span>
                 </div>
-                <span class="text-muted btn btn-light  rounded-circle"><i class="fa-solid fa-ellipsis"></i></span>
+                <div class="text-muted btn btn-light  rounded-circle">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </div>
             </div>
             <div>
-                <object data="" type="">
-                    <a href="{% url 'tweet_detail' tweet.author.username tweet.id %}">
-                        <p>{{ tweet.content|urlize|linebreaksbr }}</p>
-                    </a>
-                </object>
+                {% comment %} <a href="{% url 'tweet_detail' tweet.author.username tweet.id %}"> {% endcomment %}
+                    <p>{{ tweet.content|urlize|linebreaksbr }}</p>
+                {% comment %} </a> {% endcomment %}
                 <div class="image-container">
                     {% for img in tweet.tweet_media.all %}
                         <div class="tweet-image-container">
-                            <object data="" type=""><a href="">
-                                <img class="tweet-image" src="{{ img.image.url }}" alt=""/>
-                            </a></object>
-                        </div>
-                    {% endfor %}
-                </div>
+                            {% comment %} <a href="" {% endcomment %}
+                            <img class="tweet-image" src="{{ img.image.url }}" alt=""/>
+                        {% comment %} </a> {% endcomment %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
-    </a>
+    </div>
+{% comment %} </a> {% endcomment %}
 </div>
+<input type="hidden" value="{% url 'tweet_detail' tweet.author.username tweet.id %}" class="tweet-link">
+{% url 'tweet_detail' tweet.author.username tweet.id  as tweetDetail %}
+{{tweetDetail | json_script:"tweet-detail-url"}}

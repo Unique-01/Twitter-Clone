@@ -161,5 +161,18 @@ const imageContainers = document.querySelectorAll('.image-container');
   tweetImage();
 
   // Add an event listener to each image container element that listens for changes to its child elements
-  imageContainers.forEach(container => container.addEventListener('DOMSubtreeModified', tweetImage));
+imageContainers.forEach(container => container.addEventListener('DOMSubtreeModified', tweetImage));
 
+
+const tweetContainers = document.querySelectorAll('.tweet-container');
+const detailUrls = document.querySelectorAll('.tweet-link');
+
+for (let i = 0; i < tweetContainers.length; i++) {
+  const tweetContainer = tweetContainers[i];
+  const tweetDetailUrl = detailUrls[i].value;
+  console.log(tweetDetailUrl)
+
+  tweetContainer.addEventListener('click', () => {
+    window.location.href = tweetDetailUrl;
+  });
+}
