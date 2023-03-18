@@ -1,60 +1,57 @@
 {% load static %}
-<div class="d-flex border-top tweet pb-4 tweet-container" id="tweet-container">
-    {% comment %} <a href="{% url 'tweet_detail' tweet.author.username tweet.id %}"> {% endcomment %}
-        <div>
-            <a href="{% url 'profile' tweet.author.username %}">
-                <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
-                     alt="{{ tweet.author.username }}"
-                     class="rounded-circle mt-2"
-                     height="45"
-                     width="45"/>
-            </a>
-        </div>
-        <div class="ml-3 w-100">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <a href="{% url 'profile' tweet.author.username %}" class="text-dark">
-                        <span class="mr-3 font-weight-bold">{{ tweet.author.get_full_name }}</span>
-                        <span class="text-decoration-none text-muted">@{{ tweet.author.username }}</span>
-                    </a>
-                    <span class="px-2">&dot;</span>
-                    <span class="text-muted">
-                        {% if tweet.created.date < now.date %}
-                            {% if tweet.created.date == yesterday %}
-                                {% if now.time >= tweet.created.time %}
-                                    {{ tweet.created|date:"M d" }}
-                                {% else %}
-                                    {{ tweet.created|timesince|slice:"4" }}
-                                {% endif %}
-                            {% else %}
+<div class="d-flex border-top tweet pb-4 tweet-container"
+     id="tweet-container">
+    <div>
+        <a href="{% url 'profile' tweet.author.username %}">
+            <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                 alt="{{ tweet.author.username }}"
+                 class="rounded-circle mt-2"
+                 height="45"
+                 width="45"/>
+        </a>
+    </div>
+    <div class="ml-3 w-100">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <a href="{% url 'profile' tweet.author.username %}" class="text-dark">
+                    <span class="mr-3 font-weight-bold">{{ tweet.author.get_full_name }}</span>
+                    <span class="text-decoration-none text-muted">@{{ tweet.author.username }}</span>
+                </a>
+                <span class="px-2">&dot;</span>
+                <span class="text-muted">
+                    {% if tweet.created.date < now.date %}
+                        {% if tweet.created.date == yesterday %}
+                            {% if now.time >= tweet.created.time %}
                                 {{ tweet.created|date:"M d" }}
+                            {% else %}
+                                {{ tweet.created|timesince|slice:"4" }}
                             {% endif %}
                         {% else %}
-                            {{ tweet.created|timesince|slice:"4" }}
+                            {{ tweet.created|date:"M d" }}
                         {% endif %}
-                    </span>
-                </div>
-                <div class="text-muted btn btn-light  rounded-circle">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </div>
+                    {% else %}
+                        {{ tweet.created|timesince|slice:"4" }}
+                    {% endif %}
+                </span>
             </div>
-            <div>
-                {% comment %} <a href="{% url 'tweet_detail' tweet.author.username tweet.id %}"> {% endcomment %}
-                    <p>{{ tweet.content|urlize|linebreaksbr }}</p>
-                {% comment %} </a> {% endcomment %}
-                <div class="image-container">
-                    {% for img in tweet.tweet_media.all %}
-                        <div class="tweet-image-container">
-                            {% comment %} <a href="" {% endcomment %}
+            <button class="text-muted btn btn-light  rounded-circle">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+        <div>
+            <p>{{ tweet.content|urlize|linebreaksbr }}</p>
+            <div class="image-container">
+                {% for img in tweet.tweet_media.all %}
+                    <div class="tweet-image-container">
+                        <a href="{{ img.image.url }}">
                             <img class="tweet-image" src="{{ img.image.url }}" alt=""/>
-                        {% comment %} </a> {% endcomment %}
+                        </a>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-{% comment %} </a> {% endcomment %}
 </div>
-<input type="hidden" value="{% url 'tweet_detail' tweet.author.username tweet.id %}" class="tweet-link">
-{% url 'tweet_detail' tweet.author.username tweet.id  as tweetDetail %}
-{{tweetDetail | json_script:"tweet-detail-url"}}
+<input type="hidden"
+       value="{% url 'tweet_detail' tweet.author.username tweet.id %}"
+       class="tweet-link"/>

@@ -238,7 +238,11 @@ color:#1da1f2
   cursor: pointer;
 }
 
-.tweet:hover{
-  /* background-color: rgb(240, 239, 239); */
+.tweet-container:hover{
+  cursor: pointer;
+}
+
+.transparent-bg {
+  background-color: rgba(245, 245, 245, 0.9) !important;
 }
 

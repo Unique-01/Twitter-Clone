@@ -1,16 +1,16 @@
 {% extends "authenticated-base.html" %}
 {% load static %}
 {% block maincontent %}
-    <div class="pt-3 border-bottom sticky-top">
+    <div class="pt-3 border-bottom sticky-top transparent-bg">
         <h4 class="mb-2 home font-weight-bold">Home</h4>
         <div class="row ">
-            <button class="forfollow btn btn-light col-md-6 p-2 font-weight-bold"
+            <button class="forfollow btn col-md-6 p-2 font-weight-bold"
                     data-section="for-you"
                     onclick="changeDiv(this)">
                 For
                 you
             </button>
-            <button class="forfollow btn btn-light col-md-6 p-3 font-weight-bold"
+            <button class="forfollow btn col-md-6 p-3 font-weight-bold"
                     data-section="following"
                     onclick="changeDiv(this)">
                 Following
