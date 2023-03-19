@@ -53,5 +53,5 @@
     </div>
 </div>
 <input type="hidden"
-       value="{% url 'tweet_detail' tweet.author.username tweet.id %}"
+       value="{% url 'tweet_detail' username=tweet.author.username pk=tweet.id %}"
        class="tweet-link"/>
