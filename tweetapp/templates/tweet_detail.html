@@ -1,5 +1,8 @@
 {% extends 'authenticated-base.html' %}
 {% load static %}
+{% block head_title %}
+    {{ tweet.author.get_full_name }} on Twitter
+{% endblock head_title %}
 {% block maincontent %}
     <div>
         <div class="d-flex align-items-center mt-2 sticky-top transparent-bg py-2">
@@ -11,14 +14,58 @@
                 <h5 class="text-capitalize font-weight-bold">Thread</h5>
             </div>
         </div>
-        <div>
-            <a href="{% url 'profile' tweet.author.username %}">
-                <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
-                     alt="{{ tweet.author.username }}"
-                     class="rounded-circle mt-2"
-                     height="45"
-                     width="45"/>
-            </a>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <div>
+                    <a href="{% url 'profile' tweet.author.username %}">
+                        <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                             alt="{{ tweet.author.username }}"
+                             class="rounded-circle mt-2"
+                             height="45"
+                             width="45"/>
+                    </a>
+                </div>
+                <div class="pl-3 line-height">
+                    <span class="font-weight-bold">{{ tweet.author.get_full_name }}</span>
+                    <br/>
+                    <span class="text-muted">@{{ tweet.author.username }}</span>
+                </div>
+            </div>
+            <div class="text-muted">
+                <i class="fa fa-ellipsis"></i>
+            </div>
+        </div>
+        <div class="mt-2 border-bottom">
+            <p>{{ tweet.content|urlize|linebreaksbr }}</p>
+            <div class="image-container">
+                {% for img in tweet.tweet_media.all %}
+                    <div class="tweet-image-container">
+                        <a href="{{ img.image.url }}">
+                            <img class="tweet-image"
+                                 src="{{ img.image.url }}"
+                                 alt=""
+                                 height=""
+                                 width=""/>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-muted my-3">
+                <span class="text-uppercase">{{ tweet.created|time }}</span>
+                <span>&#183;</span>
+                <span>{{ tweet.created|date:"M d" }}</span>
+                <span>&#183;</span>
+                <span>Views</span>
+            </div>
+        </div>
+        <div class="text-muted border-bottom py-2">
+            <span>Likes</span>
+        </div>
+        <div class="d-flex justify-content-around text-muted py-3 border-bottom">
+            <i class="fa-regular fa-comment"></i>
+            <i class="fa-solid fa-retweet"></i>
+            <i class="fa-regular fa-heart"></i>
+            <i class="fa-solid fa-arrow-up-from-bracket"></i>
         </div>
     </div>
 {% endblock maincontent %}
