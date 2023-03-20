@@ -1,4 +1,5 @@
 {% load static %}
+
 <div class="d-flex border-top tweet pb-4 tweet-container"
      id="tweet-container">
     <div>
@@ -55,3 +56,4 @@
 <input type="hidden"
        value="{% url 'tweet_detail' username=tweet.author.username pk=tweet.id %}"
        class="tweet-link"/>
+

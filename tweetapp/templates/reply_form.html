@@ -1,3 +1,34 @@
 {% load static crispy_forms_tags %}
+<div>
+    <form action="" method="post" class="d-flex">
+        <a href="{% url 'profile' request.user.username %}">
+            <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                alt="{{ user.username }}" class="rounded-circle mt-2" height="45" width="45" />
+        </a>
+        <div>
+            {{ reply_form.content|as_crispy_field }}
+            <div class="d-flex justify-content-between align-items-center btnn pl-3 ">
+                <label for="file-input" class="file-label hidden">
+                    <i class="fa-regular fa-image"></i>
+                    <input type="file" id="file-input" class="file-input" accept="image/*" name="file" multiple />
+                </label>
+                <button type="submit" class="btn blue rounded-pill text-white px-3  font-weight-bold justify-content-end"
+                    id="tweet-submit-button" disabled>
+                    Tweet
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<style>
+.btnn{
+    margin-top: -40px;
+}
+.hidden{
+    display: none;
+}
+</style>
+<script>
+    const replyContent = document.getElementById('id_content');
 
-
+</script>

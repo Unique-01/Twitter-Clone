@@ -41,11 +41,7 @@
                 {% for img in tweet.tweet_media.all %}
                     <div class="tweet-image-container">
                         <a href="{{ img.image.url }}">
-                            <img class="tweet-image"
-                                 src="{{ img.image.url }}"
-                                 alt=""
-                                 height=""
-                                 width=""/>
+                            <img class="tweet-image" src="{{ img.image.url }}" alt=""/>
                         </a>
                     </div>
                 {% endfor %}
