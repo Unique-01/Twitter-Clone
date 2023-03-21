@@ -147,8 +147,8 @@ if (tweetForm != null) {
 if (replyForm != null) {
   replyForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const tweetAuthor = document.getElementById('tweetAuthor');
-    const tweetId = document.getElementById('tweetId')
+    const tweetAuthor = JSON.parse(document.getElementById('tweetAuthor').textContent);;
+    const tweetId = JSON.parse(document.getElementById('tweetId').textContent);
     const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value; // get the CSRF token value from the hidden input field in your form
     formData.append('csrfmiddlewaretoken', csrfToken);
     formData.append('content', content.value);
