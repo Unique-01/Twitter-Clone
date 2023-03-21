@@ -1,35 +1,56 @@
 {% extends "authenticated-base.html" %}
 {% load static %}
 {% block maincontent %}
-    <div class="pt-3 border-bottom sticky-top transparent-bg">
-        <h4 class="mb-2 home font-weight-bold">Home</h4>
-        <div class="row ">
-            <button class="forfollow btn col-md-6 p-2 font-weight-bold"
-                    data-section="for-you"
-                    onclick="changeDiv(this)">
-                For
-                you
-            </button>
-            <button class="forfollow btn col-md-6 p-3 font-weight-bold"
-                    data-section="following"
-                    onclick="changeDiv(this)">
-                Following
-            </button>
-        </div>
+<div class="pt-3 border-bottom sticky-top transparent-bg">
+    <h4 class="mb-2 home font-weight-bold">Home</h4>
+    <div class="row ">
+        <button class="forfollow btn col-md-6 p-2 font-weight-bold" data-section="for-you" onclick="changeDiv(this)">
+            For
+            you
+        </button>
+        <button class="forfollow btn col-md-6 p-3 font-weight-bold" data-section="following" onclick="changeDiv(this)">
+            Following
+        </button>
     </div>
-    <div class="d-flex pt-2 border-bottom">
-        <div class="">
-            <a href="{% url 'profile' request.user.username %}">
-                <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
-                     alt="{{ user.username }}"
-                     class="rounded-circle mt-2"
-                     height="45"
-                     width="45"/>
-            </a>
-        </div>
-        {% include 'tweet_form.html' %}
+</div>
+<div class="d-flex pt-2 border-bottom">
+    <div class="">
+        <a href="{% url 'profile' request.user.username %}">
+            <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                alt="{{ user.username }}" class="rounded-circle mt-2" height="45" width="45" />
+        </a>
     </div>
-    <div id="tweet-display"></div>
-    <div class="content-section" id="for-you">{% include "for-you.html" %}</div>
-    <div class="content-section" id="following">{% include "following.html" %}</div>
+    {% include 'tweet_form.html' %}
+</div>
+<div id="tweet-display"></div>
+<div class="content-section" id="for-you">{% include "for-you.html" %}</div>
+<div class="content-section" id="following">{% include "following.html" %}</div>
 {% endblock maincontent %}
+{% block extra_js %}
+<script>
+    defaultTweets();
+</script>
+<script>
+    const tweetContainers = document.querySelectorAll('.tweet-container');
+    const detailUrls = document.querySelectorAll('.tweet-link');
+
+    for (let i = 0; i < tweetContainers.length; i++) {
+        const tweetContainer = tweetContainers[i];
+        const tweetDetailUrl = detailUrls[i].value;
+        console.log(tweetDetailUrl)
+
+        tweetContainer.addEventListener('click', () => {
+            window.location.href = tweetDetailUrl;
+        });
+    }
+</script>
+<script>
+    seenByContainer.classList.add('hidden');
+    content.onclick = function () {
+        seenByContainer.classList.remove('hidden');
+        seen_by.className = '';
+        seen_by.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'py-0', 'pl-1', 'ml-3');
+        tweetFormFieldContainer.classList.add('border-bottom')
+    };
+</script>
+{% endblock extra_js %}

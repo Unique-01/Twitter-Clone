@@ -41,7 +41,11 @@
                 {% for img in tweet.tweet_media.all %}
                     <div class="tweet-image-container">
                         <a href="{{ img.image.url }}">
-                            <img class="tweet-image" src="{{ img.image.url }}" alt=""/>
+                            <img class="tweet-image"
+                                 src="{{ img.image.url }}"
+                                 alt=""
+                                 height=""
+                                 width=""/>
                         </a>
                     </div>
                 {% endfor %}
@@ -63,8 +67,6 @@
             <i class="fa-regular fa-heart"></i>
             <i class="fa-solid fa-arrow-up-from-bracket"></i>
         </div>
-        <div>
-            {% include 'reply_form.html' %}
-        </div>
+        <div>{% include "reply_form.html" %}</div>
     </div>
 {% endblock maincontent %}

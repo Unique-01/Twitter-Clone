@@ -7,13 +7,16 @@ const content = document.getElementById('id_content');
 const tweetBtn = document.getElementById('tweet-submit-button');
 const imageDiv = document.getElementById('preview-container');
 const tweetForm = document.getElementById('tweetForm');
+const replyForm = document.getElementById('reply-form')
 const tweetFormFieldContainer = document.getElementById('form-field-container');
 const formData = new FormData();
 const fileObjects = []; // Array to store the File objects
 const tweetDisplay = document.getElementById('tweet-display');
 const forYouTweet = document.getElementById('for-you');
-tweetDisplay.innerHTML = forYouTweet.innerHTML
 
+function defaultTweets() {
+  tweetDisplay.innerHTML = forYouTweet.innerHTML
+}
 
 function changeDiv(e) {
   document.getElementById('maincontent').scrollTop = 0;
@@ -26,13 +29,7 @@ function changeDiv(e) {
   }
 }
 
-seenByContainer.classList.add('hidden');
-content.onclick = function () {
-  seenByContainer.classList.remove('hidden');
-  seen_by.className = '';
-  seen_by.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'py-0', 'pl-1', 'ml-3');
-  tweetFormFieldContainer.classList.add('border-bottom')
-};
+
 
 function inputEmptyOrNot() {
   if (formData.has('file') || content.value.length !== 0) {
@@ -121,28 +118,58 @@ previewContainer.addEventListener('click', function (event) {
 
 });
 
-tweetForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value; // get the CSRF token value from the hidden input field in your form
-  formData.append('csrfmiddlewaretoken', csrfToken);
-  formData.append('content', content.value);
-  const selectedOptionSeenBy = seen_by.options[seen_by.selectedIndex]
-  formData.append('seen_by', selectedOptionSeenBy.value)
-
-  const response = await fetch('/upload_tweet/', {
-    method: 'POST',
-    body: formData,
+if (tweetForm != null) {
+  tweetForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value; // get the CSRF token value from the hidden input field in your form
+    formData.append('csrfmiddlewaretoken', csrfToken);
+    formData.append('content', content.value);
+    const selectedOptionSeenBy = seen_by.options[seen_by.selectedIndex]
+    formData.append('seen_by', selectedOptionSeenBy.value)
+  
+    const response = await fetch('/upload_tweet/', {
+      method: 'POST',
+      body: formData,
+    });
+  
+    // handle the response
+    if (response.ok) {
+      // redirect to the desired URL
+      window.location.href = '/';
+    } else {
+      // handle the error
+      console.log('Error:', response.statusText);
+    }
   });
+  
+}
 
-  // handle the response
-  if (response.ok) {
-    // redirect to the desired URL
-    window.location.href = '/';
-  } else {
-    // handle the error
-    console.log('Error:', response.statusText);
-  }
-});
+if (replyForm != null) {
+  replyForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const tweetAuthor = document.getElementById('tweetAuthor');
+    const tweetId = document.getElementById('tweetId')
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value; // get the CSRF token value from the hidden input field in your form
+    formData.append('csrfmiddlewaretoken', csrfToken);
+    formData.append('content', content.value);
+  
+    const response = await fetch('/' + tweetAuthor + '/status/' + tweetId + '/', {
+      method: 'POST',
+      body: formData,
+    });
+  
+    // handle the response
+    if (response.ok) {
+      // redirect to the desired URL
+      window.location.href = '/' + tweetAuthor + '/status/' + tweetId + '/';
+    } else {
+      // handle the error
+      console.log('Error:', response.statusText);
+    }
+  });
+}
+
+
 
 
 const imageContainers = document.querySelectorAll('.image-container');
@@ -164,15 +191,4 @@ const imageContainers = document.querySelectorAll('.image-container');
 imageContainers.forEach(container => container.addEventListener('DOMSubtreeModified', tweetImage));
 
 
-const tweetContainers = document.querySelectorAll('.tweet-container');
-const detailUrls = document.querySelectorAll('.tweet-link');
 
-for (let i = 0; i < tweetContainers.length; i++) {
-  const tweetContainer = tweetContainers[i];
-  const tweetDetailUrl = detailUrls[i].value;
-  console.log(tweetDetailUrl)
-
-  tweetContainer.addEventListener('click', () => {
-    window.location.href = tweetDetailUrl;
-  });
-}

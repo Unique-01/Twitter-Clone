@@ -1,34 +1,60 @@
 {% load static crispy_forms_tags %}
 <div>
-    <form action="" method="post" class="d-flex">
+    <form action="" method="post" class="d-flex" id="reply-form" enctype="multipart/form-data">
+        {% csrf_token %}
         <a href="{% url 'profile' request.user.username %}">
             <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
-                alt="{{ user.username }}" class="rounded-circle mt-2" height="45" width="45" />
+                 alt="{{ user.username }}"
+                 class="rounded-circle mt-2"
+                 height="45"
+                 width="45"/>
         </a>
-        <div>
+        <div class="pt-2">
+            <span id="replyto" class="hidden pl-2 text-muted">Replying to <a href="{% url 'profile' tweet.author.username %}">@{{ tweet.author.username }}</a></span>
             {{ reply_form.content|as_crispy_field }}
-            <div class="d-flex justify-content-between align-items-center btnn pl-3 ">
-                <label for="file-input" class="file-label hidden">
+            <div class="container">
+                <div id="preview-container"></div>
+            </div>
+            <div class="d-flex justify-content-end align-items-center btnn pl-3 "
+                 id="imgbtn">
+                <label for="file-input" class="file-label hidden" id="imgicon">
                     <i class="fa-regular fa-image"></i>
-                    <input type="file" id="file-input" class="file-input" accept="image/*" name="file" multiple />
+                    <input type="file"
+                           id="file-input"
+                           class="file-input"
+                           accept="image/*"
+                           name="file"
+                           multiple/>
                 </label>
-                <button type="submit" class="btn blue rounded-pill text-white px-3  font-weight-bold justify-content-end"
-                    id="tweet-submit-button" disabled>
+                <button type="submit"
+                        class="btn blue rounded-pill text-white px-3  font-weight-bold justify-content-end"
+                        id="tweet-submit-button"
+                        disabled>
                     Tweet
                 </button>
             </div>
         </div>
     </form>
 </div>
+{{tweet.author.username|json_script:"tweetAuthor"}}
+{{tweet.id|json_script:"tweetId"}}
 <style>
 .btnn{
-    margin-top: -40px;
+    margin-top: -30px;
 }
 .hidden{
     display: none;
 }
 </style>
-<script>
-    const replyContent = document.getElementById('id_content');
-
-</script>
+{% block extra_js %}
+    <script>
+    const replyTo = document.getElementById('replyto');
+    const imageTweetBtn = document.getElementById('imgbtn');
+    const imgIcon = document.getElementById('imgicon');
+    content.onclick = function (){
+        replyTo.classList.remove('hidden');
+        imgIcon.classList.remove('hidden');
+        imageTweetBtn.classList.replace('justify-content-end','justify-content-between');
+    }
+    </script>
+{% endblock extra_js %}
