@@ -1,0 +1,63 @@
+{% load static crispy_forms_tags %}
+<div class="border-top">
+    <div class="d-flex">
+        <div>
+            <a href="{% url 'profile' reply.author.username %}">
+                <img src="{% if reply.author.profile.profile_picture %}{{ reply.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                     alt="{{ reply.author.username }}"
+                     class="rounded-circle mt-2"
+                     height="45"
+                     width="45"/>
+            </a>
+        </div>
+        <div class="w-100 ml-3">
+            <div class=" pt-1 d-flex align-items-center justify-content-between">
+                <div>
+                    <a href="{% url 'profile' reply.author.username %}">
+                        <span class="font-weight-bold text-dark">{{ reply.author.get_full_name }}</span>
+                        <span class="text-muted pl-1">@{{ reply.author.username }}</span>
+                    </a>
+                    <span class="px-2">&#183;</span>
+                    <span class="text-muted">
+                        {% if reply.created.date < now.date %}
+                            {% if reply.created.date == yesterday %}
+                                {% if now.time >= reply.created.time %}
+                                    {{ reply.created|date:"M d" }}
+                                {% else %}
+                                    {{ reply.created|timesince|slice:"4" }}
+                                {% endif %}
+                            {% else %}
+                                {{ reply.created|date:"M d" }}
+                            {% endif %}
+                        {% else %}
+                            {{ reply.created|timesince|slice:"4" }}
+                        {% endif %}
+                    </span>
+                </div>
+                <button class="text-muted btn btn-light  rounded-circle">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+            </div>
+            <div>
+                <span class="text-muted">Replying to <a href="{% url 'profile' reply.tweet.author.username %}">@{{ reply.tweet.author.username }}</a></span>
+                <div>{{ reply.content|linebreaksbr|urlize }}</div>
+                <div class="image-container">
+                    {% for img in reply.reply_media.all %}
+                        <div class="tweet-image-container">
+                            <a href="{{ img.image.url }}">
+                                <img class="tweet-image" src="{{ img.image.url }}" alt=""/>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="d-flex justify-content-around text-muted py-3 border-bottom">
+                <i class="fa-regular fa-comment"></i>
+                <i class="fa-solid fa-retweet"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-chart-simple"></i>
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+            </div>
+        </div>
+    </div>
+</div>

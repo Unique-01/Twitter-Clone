@@ -21,7 +21,7 @@
                 <span class="px-2">&#183;</span>
                 <span class="text-muted">
                     {% if tweet.created.date < now.date %}
-                        {% if tweet.created.date == yesterday %}
+                        {% if tweet.created.date == yesterday %}    
                             {% if now.time >= tweet.created.time %}
                                 {{ tweet.created|date:"M d" }}
                             {% else %}

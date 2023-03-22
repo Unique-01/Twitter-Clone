@@ -4,7 +4,7 @@ from . forms import TweetForm,ReplyForm
 from django.contrib import messages
 from django.views import generic
 from django.contrib.auth.models import User
-
+from datetime import datetime,timedelta
 # Create your views here.
 
 def tweetUpload(request):
@@ -32,6 +32,8 @@ def tweetDetail(request,username,pk):
     new_reply = None
     reply_form = ReplyForm()
     images = request.FILES.getlist('file')
+    now = datetime.now()
+    yesterday = (now - timedelta(days=1)).date()
 
     if request.method == 'POST':
         reply_form = ReplyForm(request.POST)
@@ -49,7 +51,7 @@ def tweetDetail(request,username,pk):
             messages.success(request,'messages has been uploaded')
             return redirect('tweet_detail',username,pk)
     
-    return render(request,'tweet_detail.html',{'tweet':tweet,'replies':replies,'reply_form':reply_form})
+    return render(request,'tweet_detail.html',{'tweet':tweet,'replies':replies,'reply_form':reply_form,'now':now,'yesterday':yesterday})
 
             
 

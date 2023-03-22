@@ -26,5 +26,5 @@ class TweetMedia(models.Model):
     image = models.FileField(upload_to='tweet_images')
 
 class ReplyMedia(models.Model):
-    reply = models.ForeignKey(Reply, on_delete=models.CASCADE)
+    reply = models.ForeignKey(Reply, on_delete=models.CASCADE,related_name='reply_media')
     image = models.FileField(upload_to='reply_images')
