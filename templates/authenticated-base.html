@@ -36,33 +36,37 @@
                    data-toggle="popover"
                    data-trigger="focus"
                    title=""
-                   data-content="<a class='font-weight-bold text-dark btn btn-light' href='{% url 'account_logout' %}'>Log out @{{request.user.username}}</a>"
+                   data-content="<a class='font-weight-bold text-dark btn btn-light' href='{% url 'account_logout' %}'>Log out @{{ request.user.username }}</a>"
                    data-placement="top"
                    class="btn btn-light rounded-pill d-flex align-items-center justify-content-between width mt-7 py-2 pb-3">
+                <div>
+                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                         alt="{{ user.username }}"
+                         class="rounded-circle "
+                         height="40"
+                         width="40"/>
+                </div>
+                <div class="line-space">
                     <div>
-                        <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
-                             alt="{{ user.username }}"
-                             class="rounded-circle "
-                             height="40"
-                             width="40"/>
+                        <h6>{{ request.user.get_full_name|truncatechars:"15" }}</h6>
                     </div>
-                    <div class="line-space">
-                        <div>
-                            <h6>{{ request.user.get_full_name|truncatechars:"15" }}</h6>
-                        </div>
-                        <div class="float-left">
-                            <span class="text-muted">@{{ request.user.username }}</span>
-                        </div>
+                    <div class="float-left">
+                        <span class="text-muted">@{{ request.user.username }}</span>
                     </div>
-                    <div>
-                        <i class="fa fa-ellipsis"></i>
-                    </div>
-                </a>
-            </div>
+                </div>
+                <div>
+                    <i class="fa fa-ellipsis"></i>
+                </div>
+            </a>
         </div>
-        <div class="border border-top-0 border-bottom-0 col-md-5 ml-00 independent-scroll" id="maincontent">
-            {% block maincontent %}
-            {% endblock maincontent %}
-        </div>
-    </section>
+    </div>
+    <div class="border border-top-0 border-bottom-0 col-md-5 ml-00 independent-scroll"
+         id="maincontent">
+        {% block maincontent %}
+        {% endblock maincontent %}
+    </div>
+    <div class="col-md-3">
+        {% for trending,count in trending_words %}{{ trending }}{% endfor %}
+    </div>
+</section>
 {% endblock content %}
