@@ -40,7 +40,7 @@
             </button>
         </div>
         <div>
-            <p>{{ tweet.content|urlize|linebreaksbr }}</p>
+            <p>{{ tweet.content|safe|linebreaksbr|urlize }}</p>
             <div class="image-container">
                 {% for img in tweet.tweet_media.all %}
                     <div class="tweet-image-container">

@@ -11,6 +11,7 @@ urlpatterns = [
     path('',views.indexView,name='index'),
     path('',include('accounts.urls')),
     path('',include("tweetapp.urls")),
+    path('search/',views.searchView,name='search'),
     # path('',TemplateView.as_view(template_name='index.html'),name='index'),
 ]
 if settings.DEBUG:
