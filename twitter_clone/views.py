@@ -17,7 +17,7 @@ def indexView(request):
     trending_words = trendingView(request)
     tweets = Tweet.objects.all()
     for tweet in tweets:
-        tweet.content = re.sub(r'#(\w+)', r'<a href="search?{{ "q"|urlencode }}=\1">#\1</a>', tweet.content)
+        tweet.content = re.sub(r'#(\w+)', r'<a href="search?q=\1">#\1</a>', tweet.content)
     shuffled_tweets = list(tweets)
     shuffle(shuffled_tweets)
     login_form = CustomLoginForm()
