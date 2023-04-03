@@ -29,8 +29,9 @@ def trendingView(request):
         words.extend(hashtags)
         word_count = Counter(words)
         trending_words = word_count.most_common(10)
+        trending_tweets = Tweet.objects.filter(content__icontains=trending_words)
 
-    return trending_words
+    return trending_words,trending_tweets
 
 
 def tweetUpload(request):

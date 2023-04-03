@@ -5,6 +5,7 @@
 {% endblock head_title %}
 {% block content %}
     {% url 'profile' request.user.username as request_user_profile %}
+    {% url 'index' as index %}
     <section class="row" id="content">
         <div class="col-md-3 ml-4-5 ">
             <a href="" class="btn btn-light rounded-circle ml-1 py-2">
@@ -16,7 +17,7 @@
             </a>
             <br />
             <div class="ml-2 ">
-                <a href=" {% url 'index' as index %}"
+                <a href="{{ index }} "
                    class=" btn btn-light rounded-pill big-text px-3 {% if request.path == index %}font-weight-bold{% endif %}"><i class="fa-solid fa-house"> </i>&nbsp;&nbsp;&nbsp;&nbsp;Home</a>
                 <br />
                 <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i class="fa-solid fa-sharp fa-hashtag"></i>&nbsp;&nbsp;&nbsp;&nbsp;Explore</a>
@@ -65,24 +66,30 @@
         {% block maincontent %}
         {% endblock maincontent %}
     </div>
-    <div class="col-md-3 pt-2">
+    <div class="col-md-3 pt-2 pl-4">
         {% block 'left-search' %}
-        <div class="">
-            <form action="{% url 'search' %}" method="get" class=" pl-1">
-                <div class="form-control rounded-pill search pl-4  border-0 ">
-                    <i class="fa fa-search"></i>
-                    <input type="text"
-                           placeholder="Search Twitter"
-                           class="border-0 form-control input"
-                           name="q"/>
-                </div>
-            </form>
-        </div>
+            <div class="w-100">
+                <form action="{% url 'search' %}" method="get" class=" pl-1">
+                    <div class="form-control rounded-pill search pl-4  border-0 w-100">
+                        <i class="fa fa-search"></i>
+                        <input type="text"
+                               placeholder="Search Twitter"
+                               class="border-0 form-control input"
+                               name="q"/>
+                    </div>
+                </form>
+            </div>
         {% endblock 'left-search' %}
         <div class="mt-3 font-weight-bold">
             <h2 class="font-weight-bolder dark ">Trends for you</h2>
         </div>
-        {% for trending,count in trending_words %}{{ trending }}{% endfor %}
+        {% for trending,count in trending_words %}
+            <p>
+                <a href="{% url 'search' %}?q={{ trending|slugify }}" class="text-dark">{{ trending }}</a>
+                
+            </p>
+        {% endfor %}
+        
     </div>
 </section>
 {% endblock content %}

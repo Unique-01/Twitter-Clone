@@ -25,19 +25,21 @@
 <div id="tweet-display"></div>
 <div class="content-section" id="for-you">{% include "for-you.html" %}</div>
 <div class="content-section" id="following">{% include "following.html" %}</div>
+
 {% endblock maincontent %}
 {% block extra_js %}
 <script>
     defaultTweets();
 </script>
 <script>
+    var shuffled_tweets = JSON.parse('{{ shuffled_tweets_json|escapejs }}');
+    console.log(shuffled_tweets)
     const tweetContainers = document.querySelectorAll('.tweet-container');
     const detailUrls = document.querySelectorAll('.tweet-link');
 
     for (let i = 0; i < tweetContainers.length; i++) {
         const tweetContainer = tweetContainers[i];
         const tweetDetailUrl = detailUrls[i].value;
-        console.log(tweetDetailUrl)
 
         tweetContainer.addEventListener('click', () => {
             window.location.href = tweetDetailUrl;

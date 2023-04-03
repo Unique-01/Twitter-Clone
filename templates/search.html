@@ -4,7 +4,7 @@
     <div class=" d-flex justify-content-between  align-items-center mt-1 mx-2">
         <div>
             <a href="{{ request.META.HTTP_REFERER|escape }}"
-               class="text-dark font-weight-bold">&larr;</a>
+               class="text-dark font-weight-bold btn btn-light rounded-circle">&larr;</a>
         </div>
         <form action="{% url 'search' %}" method="get" class="w-100 pr-5 pl-5">
             <div class="form-control rounded-pill search pl-4  border-0 ">
@@ -22,7 +22,6 @@
     {% include "tweets.html" %}
     {% endfor %}
     {% block 'left-search' %}
-    
     {% endblock 'left-search' %}
 
 
