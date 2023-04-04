@@ -36,7 +36,7 @@
 <script>
     var shuffled_tweets = JSON.parse('{{ shuffled_tweets_json|escapejs }}');
     console.log(shuffled_tweets)
-    const tweetContainers = document.querySelectorAll('.tweet-container');
+    {% comment %} const tweetContainers = document.querySelectorAll('.tweet-container');
     const detailUrls = document.querySelectorAll('.tweet-link');
 
     for (let i = 0; i < tweetContainers.length; i++) {
@@ -46,7 +46,7 @@
         tweetContainer.addEventListener('click', () => {
             window.location.href = tweetDetailUrl;
         });
-    }
+    } {% endcomment %}
 </script>
 <script>
     seenByContainer.classList.add('hidden');

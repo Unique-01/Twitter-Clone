@@ -123,7 +123,9 @@ svg {
   height: 20px;
   color: gray;
 }
-
+/* #section{
+  width: 100%;
+} */
 #section,
 html,
 body {
@@ -249,4 +251,14 @@ color:#1da1f2
 .trending{
   border-radius: 20px;
 }
+.left-pane{
+  width: 30%;
+  padding: 2px 30px 0px 10px;
 
+}
+.trending_item{
+  cursor: pointer;
+}
+.trending_item:hover{
+  background-color:rgb(240, 240, 240) ;
+}

@@ -6,7 +6,7 @@
 {% block content %}
     {% url 'profile' request.user.username as request_user_profile %}
     {% url 'index' as index %}
-    <section class="row" id="section">
+    <section class="row ml-2 " id="section">
         <div class="col-md-3 ml-4-5 ">
             <a href="" class="btn btn-light rounded-circle ml-1 py-2">
                 <img src="{% static 'twitter.svg' %}"
@@ -16,7 +16,7 @@
                      class=""/>
             </a>
             <br />
-            <div class="ml-2 ">
+            <div class="">
                 <a href="{{ index }} "
                    class=" btn btn-light rounded-pill big-text px-3 {% if request.path == index %}font-weight-bold{% endif %}"><i class="fa-solid fa-house"> </i>&nbsp;&nbsp;&nbsp;&nbsp;Home</a>
                 <br />
@@ -66,9 +66,9 @@
         {% block maincontent %}
         {% endblock maincontent %}
     </div>
-    <div class="col-md-3 pt-2 pl-4 independent-scroll">
+    <div class=" pl-4 independent-scroll left-pane">
         {% block 'left-search' %}
-            <div class="w-100">
+            <div class="">
                 <form action="{% url 'search' %}" method="get" class=" pl-1">
                     <div class="form-control rounded-pill search pl-4  border-0 w-100">
                         <i class="fa fa-search"></i>
@@ -80,23 +80,39 @@
                 </form>
             </div>
         {% endblock 'left-search' %}
-        <div class="mt-3 font-weight-bold bg-light p-3 trending ">
+        <div class="mt-3 font-weight-bold bg-light trending ">
             <h2 class="font-weight-bolder dark ">Trends for you</h2>
             {% for trending_word,trending_word_tweets_count in trending_words %}
-                <p>
-                    <a href="{% url 'search' %}?q={{ trending_word.0|slugify }}"
-                       class="text-dark">{{ trending_word.0 }}</a>
-                    <br/>
+                <div class="trending_item p-3 rounded">
+                    <input type="hidden"
+                           value="{% url 'search' %}?q={{ trending_word.0|slugify }}"
+                           class="trending-link"/>
+                    {{ trending_word.0|capfirst }}
+                    <br />
                     <small class="text-muted">{{ trending_word_tweets_count }}&nbsp;
                         {% if trending_word_tweets_count > 1 %}
-                            tweets
+                            Tweets
                         {% else %}
-                            tweet
+                            Tweet
                         {% endif %}
                     </small>
-                </p>
+                </div>
             {% endfor %}
         </div>
     </div>
 </section>
+<script>
+    const trendingItems = document.querySelectorAll('.trending_item');
+    const trendingLinks = document.querySelectorAll('.trending-link');
+    for (let i = 0; i < trendingItems.length; i++) {
+        const trendingItem = trendingItems[i];
+        const trendingLink = trendingLinks[i].value;
+
+        trendingItem.addEventListener('click', function () {
+            window.location.href = trendingLink
+        })
+
+    }
+
+</script>
 {% endblock content %}

@@ -38,46 +38,50 @@ function inputEmptyOrNot() {
     tweetBtn.disabled = true;
   }
 }
+if (content != null) {
+  content.setAttribute('onkeyup', 'inputEmptyOrNot()');
+}
 
-content.setAttribute('onkeyup', 'inputEmptyOrNot()');
 
-fileInput.addEventListener('change', function () {
-  const files = this.files;
-  const fileCount = files.length;
-  if (fileObjects.length + fileCount > maxUploads) {
-    alert(`You can only upload up to ${maxUploads} files.`);
-    return;
-  }
-
-  for (let i = 0; i < fileCount; i++) {
-    const file = files[i];
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      const previewImageContainer = document.createElement('div');
-      previewImageContainer.classList.add('preview-image-container');
-      const previewImage = document.createElement('img');
-      previewImage.classList.add('preview-image');
-      previewImage.src = event.target.result;
-      previewImageContainer.appendChild(previewImage);
-      const deleteButton = document.createElement('button');
-      deleteButton.classList.add('delete-button');
-      deleteButton.setAttribute('data-file', file.name); // add an attribute to identify the associated file
-      deleteButton.innerHTML = 'X';
-      previewImageContainer.appendChild(deleteButton);
-      previewContainer.appendChild(previewImageContainer);
-
-      const imageCount = previewContainer.querySelectorAll('.preview-image-container').length;
-      const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
-      previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
-      const rowCount = Math.ceil(imageCount / columnCount);
-      previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
-    };
-    reader.readAsDataURL(file);
-    formData.append('file', file);
-    fileObjects.push(file);
-    inputEmptyOrNot()
-  }
-});
+if (fileInput != null) {
+  fileInput.addEventListener('change', function () {
+    const files = this.files;
+    const fileCount = files.length;
+    if (fileObjects.length + fileCount > maxUploads) {
+      alert(`You can only upload up to ${maxUploads} files.`);
+      return;
+    }
+  
+    for (let i = 0; i < fileCount; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const previewImageContainer = document.createElement('div');
+        previewImageContainer.classList.add('preview-image-container');
+        const previewImage = document.createElement('img');
+        previewImage.classList.add('preview-image');
+        previewImage.src = event.target.result;
+        previewImageContainer.appendChild(previewImage);
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.setAttribute('data-file', file.name); // add an attribute to identify the associated file
+        deleteButton.innerHTML = 'X';
+        previewImageContainer.appendChild(deleteButton);
+        previewContainer.appendChild(previewImageContainer);
+  
+        const imageCount = previewContainer.querySelectorAll('.preview-image-container').length;
+        const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
+        previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+        const rowCount = Math.ceil(imageCount / columnCount);
+        previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
+      };
+      reader.readAsDataURL(file);
+      formData.append('file', file);
+      fileObjects.push(file);
+      inputEmptyOrNot()
+    }
+  });
+}
 
 function removeFileFromFormData(fileName) {
   for (let i = 0; i < fileObjects.length; i++) {
@@ -99,24 +103,26 @@ function removeFileFromFormData(fileName) {
 }
 
 
-previewContainer.addEventListener('click', function (event) {
-  if (event.target.classList.contains('delete-button')) {
-    const previewImageContainer = event.target.parentNode;
-    const deleteBtn = previewImageContainer.querySelector('.delete-button');
-    const fileName = deleteBtn.getAttribute('data-file');
-    removeFileFromFormData(fileName);
-    previewImageContainer.remove();
-    const remainingImages = document.querySelectorAll('.preview-image');
-    const imageCount = remainingImages.length;
-    const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
-    previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
-    const rowCount = Math.ceil(imageCount / columnCount);
-    previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
-
-  }
-  inputEmptyOrNot()
-
-});
+if (previewContainer != null) {
+  previewContainer.addEventListener('click', function (event) {
+    if (event.target.classList.contains('delete-button')) {
+      const previewImageContainer = event.target.parentNode;
+      const deleteBtn = previewImageContainer.querySelector('.delete-button');
+      const fileName = deleteBtn.getAttribute('data-file');
+      removeFileFromFormData(fileName);
+      previewImageContainer.remove();
+      const remainingImages = document.querySelectorAll('.preview-image');
+      const imageCount = remainingImages.length;
+      const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
+      previewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+      const rowCount = Math.ceil(imageCount / columnCount);
+      previewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
+  
+    }
+    inputEmptyOrNot()
+  
+  });
+}
 
 if (tweetForm != null) {
   tweetForm.addEventListener('submit', async (event) => {
@@ -189,6 +195,19 @@ const imageContainers = document.querySelectorAll('.image-container');
 
   // Add an event listener to each image container element that listens for changes to its child elements
 imageContainers.forEach(container => container.addEventListener('DOMSubtreeModified', tweetImage));
+
+
+const tweetContainers = document.querySelectorAll('.tweet-container');
+    const detailUrls = document.querySelectorAll('.tweet-link');
+
+    for (let i = 0; i < tweetContainers.length; i++) {
+        const tweetContainer = tweetContainers[i];
+        const tweetDetailUrl = detailUrls[i].value;
+
+        tweetContainer.addEventListener('click', () => {
+            window.location.href = tweetDetailUrl;
+        });
+    }
 
 
 
