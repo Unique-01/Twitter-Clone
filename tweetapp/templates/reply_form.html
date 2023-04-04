@@ -36,11 +36,12 @@
 </style>
 {% block extra_js %}
 <script>
+    const replyContent = document.getElementById('id_content')
     const replyTo = document.getElementById('replyto');
     const imageTweetBtn = document.getElementById('imgbtn');
     const imgIcon = document.getElementById('imgicon');
     const formContentDiv = document.getElementById('formcontentdiv');
-    content.onclick = function () {
+    replyContent.onclick = function () {
         replyTo.classList.remove('hidden');
         imgIcon.classList.remove('hidden');
         formContentDiv.classList.remove('d-flex')

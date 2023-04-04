@@ -17,7 +17,8 @@ import json
 
 
 def indexView(request):
-    trending_words,trending_tweets = trendingView(request)
+    trending_words = trendingView(request)
+    # trending_tweets_count = trending
     tweets = Tweet.objects.all()
     for tweet in tweets:
         tweet.content = re.sub(r'#(\w+)', r'<a href="search?q=\1">#\1</a>', tweet.content)
@@ -41,7 +42,7 @@ def indexView(request):
         'yesterday': yesterday,
         'trending_words': trending_words,
         'shuffled_tweets_json': json.dumps(shuffled_tweets_dicts), # pass the shuffled_tweets as JSON
-        'trending_tweets':trending_tweets,
+        
     }
     return render(request, 'index.html', context)
 
@@ -50,7 +51,7 @@ def searchView(request):
     query = request.GET.get('q')
     search_tweets = None
     search_people = None
-    trending_words,trending_tweets = trendingView(request)
+    trending_words = trendingView(request)
 
     if query:
         search_tweets = Tweet.objects.filter(content__icontains=query)

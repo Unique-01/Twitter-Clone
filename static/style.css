@@ -124,7 +124,7 @@ svg {
   color: gray;
 }
 
-#content,
+#section,
 html,
 body {
   height: 100%;
@@ -244,5 +244,9 @@ color:#1da1f2
 
 .transparent-bg {
   background-color: rgba(245, 245, 245, 0.9) !important;
+}
+
+.trending{
+  border-radius: 20px;
 }
 

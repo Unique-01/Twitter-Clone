@@ -6,7 +6,7 @@
 {% block content %}
     {% url 'profile' request.user.username as request_user_profile %}
     {% url 'index' as index %}
-    <section class="row" id="content">
+    <section class="row" id="section">
         <div class="col-md-3 ml-4-5 ">
             <a href="" class="btn btn-light rounded-circle ml-1 py-2">
                 <img src="{% static 'twitter.svg' %}"
@@ -66,7 +66,7 @@
         {% block maincontent %}
         {% endblock maincontent %}
     </div>
-    <div class="col-md-3 pt-2 pl-4">
+    <div class="col-md-3 pt-2 pl-4 independent-scroll">
         {% block 'left-search' %}
             <div class="w-100">
                 <form action="{% url 'search' %}" method="get" class=" pl-1">
@@ -80,16 +80,23 @@
                 </form>
             </div>
         {% endblock 'left-search' %}
-        <div class="mt-3 font-weight-bold">
+        <div class="mt-3 font-weight-bold bg-light p-3 trending ">
             <h2 class="font-weight-bolder dark ">Trends for you</h2>
+            {% for trending_word,trending_word_tweets_count in trending_words %}
+                <p>
+                    <a href="{% url 'search' %}?q={{ trending_word.0|slugify }}"
+                       class="text-dark">{{ trending_word.0 }}</a>
+                    <br/>
+                    <small class="text-muted">{{ trending_word_tweets_count }}&nbsp;
+                        {% if trending_word_tweets_count > 1 %}
+                            tweets
+                        {% else %}
+                            tweet
+                        {% endif %}
+                    </small>
+                </p>
+            {% endfor %}
         </div>
-        {% for trending,count in trending_words %}
-            <p>
-                <a href="{% url 'search' %}?q={{ trending|slugify }}" class="text-dark">{{ trending }}</a>
-                
-            </p>
-        {% endfor %}
-        
     </div>
 </section>
 {% endblock content %}
