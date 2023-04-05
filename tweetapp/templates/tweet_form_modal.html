@@ -1,0 +1,60 @@
+<!-- Modal -->
+{% load static socialaccount %}
+<div class="modal fade"
+     id="tweetFormModal"
+     data-backdrop="static"
+     data-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-width">
+        <div class="modal-content rounded-o">
+            <div class="modal-body">
+                <div class="mt-cust">
+                    <button type="button"
+                            class="close p-2 float-left"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div>
+                        {% load crispy_forms_tags %}
+                        <form action="{% url 'tweet_upload' %}"
+                              id="tweetForm"
+                              method="post"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="" id="form-field-container">
+                                <div id="modal_seen_by_container">{{ tweet_form.seen_by|as_crispy_field }}</div>
+                                <div>{{ tweet_form.content|as_crispy_field }}</div>
+                            </div>
+                            <div class="">
+                                <div class="container">
+                                    <div id="modal-preview-container"></div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between py-2 pl-3">
+                                    <label for="modal-file-input" class="file-label">
+                                        
+                                        <i class="fa-regular fa-image"></i>
+                                        <input type="file"
+                                               id="modal-file-input"
+                                               class="file-input"
+                                               accept="image/*"
+                                               name="file"
+                                               multiple/>
+                                    </label>
+                                    <button type="submit"
+                                            class="btn blue rounded-pill text-white px-3  font-weight-bold"
+                                            id="tweet-submit-button"
+                                            disabled>
+                                        Tweet
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,9 +28,9 @@
                 <br />
                 <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i class="fa-solid fa-ellipsis"></i>&nbsp;&nbsp;&nbsp;&nbsp;More</a>
             </div>
-            <div class="blue rounded-pill p-2 d-flex justify-content-center width mt-3 ">
-                <a href="" class="btn text-white font-weight-bold">Tweet</a>
-            </div>
+            <button class=" btn blue rounded-pill p-2 d-flex justify-content-center width mt-3 w-100 " type="button" data-toggle="modal" data-target="#tweetFormModal" >
+                <span class=" text-white font-weight-bold">Tweet</span> 
+            </button>
             <div>
                 <a tabindex="0"
                    role="button"
@@ -81,7 +81,7 @@
             </div>
         {% endblock 'left-search' %}
         <div class="mt-3 font-weight-bold bg-light trending ">
-            <h2 class="font-weight-bolder dark ">Trends for you</h2>
+            <h2 class="font-weight-bolder dark pt-3 px-3 ">Trends for you</h2>
             {% for trending_word,trending_word_tweets_count in trending_words %}
                 <div class="trending_item p-3 rounded">
                     <input type="hidden"
@@ -115,4 +115,5 @@
     }
 
 </script>
+{% include "tweet_form_modal.html" %}
 {% endblock content %}

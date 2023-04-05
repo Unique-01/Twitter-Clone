@@ -1,5 +1,7 @@
 const previewContainer = document.getElementById('preview-container');
+const modalPreviewContainer = document.getElementById('modal-preview-container');
 const fileInput = document.getElementById('file-input');
+const modalFileInput = document.getElementById('modal-file-input')
 const maxUploads = 4; // Set the maximum number of uploads here
 const seen_by = document.getElementById('id_seen_by');
 const seenByContainer = document.getElementById('seen_by_container')
@@ -7,6 +9,7 @@ const content = document.getElementById('id_content');
 const tweetBtn = document.getElementById('tweet-submit-button');
 const imageDiv = document.getElementById('preview-container');
 const tweetForm = document.getElementById('tweetForm');
+const tweetFormModal = document.getElementById('tweetFormModal')
 const replyForm = document.getElementById('reply-form')
 const tweetFormFieldContainer = document.getElementById('form-field-container');
 const formData = new FormData();
@@ -82,6 +85,45 @@ if (fileInput != null) {
     }
   });
 }
+if (modalFileInput != null) {
+  modalFileInput.addEventListener('change', function () {
+    const files = this.files;
+    const fileCount = files.length;
+    if (fileObjects.length + fileCount > maxUploads) {
+      alert(`You can only upload up to ${maxUploads} files.`);
+      return;
+    }
+  
+    for (let i = 0; i < fileCount; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const previewImageContainer = document.createElement('div');
+        previewImageContainer.classList.add('preview-image-container');
+        const previewImage = document.createElement('img');
+        previewImage.classList.add('preview-image');
+        previewImage.src = event.target.result;
+        previewImageContainer.appendChild(previewImage);
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.setAttribute('data-file', file.name); // add an attribute to identify the associated file
+        deleteButton.innerHTML = 'X';
+        previewImageContainer.appendChild(deleteButton);
+        modalPreviewContainer.appendChild(previewImageContainer);
+  
+        const imageCount = modalPreviewContainer.querySelectorAll('.preview-image-container').length;
+        const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
+        modalPreviewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+        const rowCount = Math.ceil(imageCount / columnCount);
+        modalPreviewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
+      };
+      reader.readAsDataURL(file);
+      formData.append('file', file);
+      fileObjects.push(file);
+      inputEmptyOrNot()
+    }
+  });
+}
 
 function removeFileFromFormData(fileName) {
   for (let i = 0; i < fileObjects.length; i++) {
@@ -124,8 +166,56 @@ if (previewContainer != null) {
   });
 }
 
+if (modalPreviewContainer != null) {
+  modalPreviewContainer.addEventListener('click', function (event) {
+    if (event.target.classList.contains('delete-button')) {
+      const previewImageContainer = event.target.parentNode;
+      const deleteBtn = previewImageContainer.querySelector('.delete-button');
+      const fileName = deleteBtn.getAttribute('data-file');
+      removeFileFromFormData(fileName);
+      previewImageContainer.remove();
+      const remainingImages = document.querySelectorAll('.preview-image');
+      const imageCount = remainingImages.length;
+      const columnCount = Math.min(Math.ceil(Math.sqrt(imageCount)), 2);
+      modalPreviewContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+      const rowCount = Math.ceil(imageCount / columnCount);
+      modalPreviewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
+  
+    }
+    inputEmptyOrNot()
+  
+  });
+}
+
+
 if (tweetForm != null) {
   tweetForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value; // get the CSRF token value from the hidden input field in your form
+    formData.append('csrfmiddlewaretoken', csrfToken);
+    formData.append('content', content.value);
+    const selectedOptionSeenBy = seen_by.options[seen_by.selectedIndex]
+    formData.append('seen_by', selectedOptionSeenBy.value)
+  
+    const response = await fetch('/upload_tweet/', {
+      method: 'POST',
+      body: formData,
+    });
+  
+    // handle the response
+    if (response.ok) {
+      // redirect to the desired URL
+      window.location.href = '/';
+    } else {
+      // handle the error
+      console.log('Error:', response.statusText);
+    }
+  });
+  
+}
+
+if (tweetFormModal != null) {
+  tweetFormModal.addEventListener('submit', async (event) => {
     event.preventDefault();
     const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value; // get the CSRF token value from the hidden input field in your form
     formData.append('csrfmiddlewaretoken', csrfToken);
@@ -195,19 +285,5 @@ const imageContainers = document.querySelectorAll('.image-container');
 
   // Add an event listener to each image container element that listens for changes to its child elements
 imageContainers.forEach(container => container.addEventListener('DOMSubtreeModified', tweetImage));
-
-
-const tweetContainers = document.querySelectorAll('.tweet-container');
-    const detailUrls = document.querySelectorAll('.tweet-link');
-
-    for (let i = 0; i < tweetContainers.length; i++) {
-        const tweetContainer = tweetContainers[i];
-        const tweetDetailUrl = detailUrls[i].value;
-
-        tweetContainer.addEventListener('click', () => {
-            window.location.href = tweetDetailUrl;
-        });
-    }
-
 
 
