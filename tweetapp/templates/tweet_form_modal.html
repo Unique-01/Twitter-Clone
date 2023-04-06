@@ -1,32 +1,28 @@
 <!-- Modal -->
-{% load static socialaccount %}
-<div class="modal fade"
-     id="tweetFormModal"
-     data-backdrop="static"
-     data-keyboard="false"
-     tabindex="-1"
-     aria-labelledby="staticBackdropLabel"
-     aria-hidden="true">
+{% load static socialaccount crispy_forms_tags %}
+<div class="modal fade" id="tweetFormModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-width">
         <div class="modal-content rounded-o">
             <div class="modal-body">
                 <div class="mt-cust">
-                    <button type="button"
-                            class="close p-2 float-left"
-                            data-dismiss="modal"
-                            aria-label="Close">
+                    <button type="button" class="close p-2 float-left" data-dismiss="modal" aria-label="Close" id="closeButton">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <div>
-                        {% load crispy_forms_tags %}
-                        <form action="{% url 'tweet_upload' %}"
-                              id="tweetForm"
-                              method="post"
-                              enctype="multipart/form-data">
+                    <div class="d-flex">
+
+                        <div class="mt-5">
+                            <a href="{% url 'profile' request.user.username %}">
+                                <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                                    alt="{{ user.username }}" class="rounded-circle mt-2" height="45" width="45" />
+                            </a>
+                        </div>
+                        <form action="{% url 'tweet_upload' %}" id="tweetFormModalForm" method="post"
+                            enctype="multipart/form-data" class="mt-5">
                             {% csrf_token %}
                             <div class="" id="form-field-container">
                                 <div id="modal_seen_by_container">{{ tweet_form.seen_by|as_crispy_field }}</div>
-                                <div>{{ tweet_form.content|as_crispy_field }}</div>
+                                <div id="modal-form-content">{{ tweet_form.content|as_crispy_field }}</div>
                             </div>
                             <div class="">
                                 <div class="container">
@@ -34,19 +30,14 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between py-2 pl-3">
                                     <label for="modal-file-input" class="file-label">
-                                        
+
                                         <i class="fa-regular fa-image"></i>
-                                        <input type="file"
-                                               id="modal-file-input"
-                                               class="file-input"
-                                               accept="image/*"
-                                               name="file"
-                                               multiple/>
+                                        <input type="file" id="modal-file-input" class="file-input" accept="image/*"
+                                            name="file" multiple />
                                     </label>
                                     <button type="submit"
-                                            class="btn blue rounded-pill text-white px-3  font-weight-bold"
-                                            id="tweet-submit-button"
-                                            disabled>
+                                        class="btn blue rounded-pill text-white px-3  font-weight-bold"
+                                        id="modal-tweet-submit-button" disabled>
                                         Tweet
                                     </button>
                                 </div>

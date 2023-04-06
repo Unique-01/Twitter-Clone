@@ -5,17 +5,23 @@ const modalFileInput = document.getElementById('modal-file-input')
 const maxUploads = 4; // Set the maximum number of uploads here
 const seen_by = document.getElementById('id_seen_by');
 const seenByContainer = document.getElementById('seen_by_container')
+const modalSeenByContainer = document.getElementById('modal_seen_by_container')
 const content = document.getElementById('id_content');
 const tweetBtn = document.getElementById('tweet-submit-button');
 const imageDiv = document.getElementById('preview-container');
 const tweetForm = document.getElementById('tweetForm');
-const tweetFormModal = document.getElementById('tweetFormModal')
+const tweetFormModal = document.getElementById('tweetFormModal');
+const tweetFormModalForm = document.getElementById('tweetFormModalForm')
 const replyForm = document.getElementById('reply-form')
 const tweetFormFieldContainer = document.getElementById('form-field-container');
 const formData = new FormData();
 const fileObjects = []; // Array to store the File objects
 const tweetDisplay = document.getElementById('tweet-display');
 const forYouTweet = document.getElementById('for-you');
+const modalFormContent = document.getElementById('modal-form-content')
+const maincontent = modalFormContent.querySelector('#id_content')
+const modalSeenBy = modalSeenByContainer.querySelector('#id_seen_by')
+
 
 function defaultTweets() {
   tweetDisplay.innerHTML = forYouTweet.innerHTML
@@ -44,6 +50,18 @@ function inputEmptyOrNot() {
 if (content != null) {
   content.setAttribute('onkeyup', 'inputEmptyOrNot()');
 }
+const modalTweetBtn = document.getElementById('modal-tweet-submit-button');
+function modalInputEmptyOrNot() {
+    if (formData.has('file') || maincontent.value.length !== 0) {
+        modalTweetBtn.disabled = false;
+    } else {
+        modalTweetBtn.disabled = true;
+    }
+}
+if (maincontent != null) {
+    maincontent.setAttribute('onkeyup', 'modalInputEmptyOrNot()');
+}
+
 
 
 if (fileInput != null) {
@@ -120,7 +138,7 @@ if (modalFileInput != null) {
       reader.readAsDataURL(file);
       formData.append('file', file);
       fileObjects.push(file);
-      inputEmptyOrNot()
+      modalInputEmptyOrNot()
     }
   });
 }
@@ -182,7 +200,7 @@ if (modalPreviewContainer != null) {
       modalPreviewContainer.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
   
     }
-    inputEmptyOrNot()
+    modalInputEmptyOrNot()
   
   });
 }
@@ -214,13 +232,13 @@ if (tweetForm != null) {
   
 }
 
-if (tweetFormModal != null) {
-  tweetFormModal.addEventListener('submit', async (event) => {
+if (tweetFormModalForm != null) {
+  tweetFormModalForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value; // get the CSRF token value from the hidden input field in your form
     formData.append('csrfmiddlewaretoken', csrfToken);
-    formData.append('content', content.value);
-    const selectedOptionSeenBy = seen_by.options[seen_by.selectedIndex]
+    formData.append('content', maincontent.value);
+    const selectedOptionSeenBy = modalSeenBy.options[modalSeenBy.selectedIndex]
     formData.append('seen_by', selectedOptionSeenBy.value)
   
     const response = await fetch('/upload_tweet/', {

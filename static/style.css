@@ -196,6 +196,7 @@ color:#1da1f2
 }
 
 #preview-container,
+#modal-preview-container,
 .image-container {
   display: grid;
   grid-gap: 10px;

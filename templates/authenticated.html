@@ -5,11 +5,13 @@
     <div class="pt-3 border-bottom sticky-top transparent-bg px-3">
         <h4 class="mb-2 home font-weight-bold">Home</h4>
         <div class="row ">
-            <button class="forfollow btn col-md-6 p-2 font-weight-bold" data-section="for-you" onclick="changeDiv(this)">
+            <button class="forfollow btn col-md-6 p-2 font-weight-bold" data-section="for-you"
+                onclick="changeDiv(this)">
                 For
                 you
             </button>
-            <button class="forfollow btn col-md-6 p-3 font-weight-bold" data-section="following" onclick="changeDiv(this)">
+            <button class="forfollow btn col-md-6 p-3 font-weight-bold" data-section="following"
+                onclick="changeDiv(this)">
                 Following
             </button>
         </div>
@@ -50,6 +52,9 @@
     }
 </script>
 <script>
+    // const modalFormContent = document.getElementById('modal-form-content')
+    // const maincontent = modalFormContent.querySelector('#id_content')
+
     seenByContainer.classList.add('hidden');
     content.onclick = function () {
         seenByContainer.classList.remove('hidden');
@@ -57,6 +62,47 @@
         seen_by.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'py-0', 'pl-1', 'ml-3');
         tweetFormFieldContainer.classList.add('border-bottom')
     };
+    // const modalSeenBy = modalSeenByContainer.querySelector('#id_seen_by')
+    window.onload = function () {
+        modalFormContent.style.height = "100px"
+        modalFormContent.focus;
+        modalSeenBy.className = '';
+        modalSeenBy.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'pl-1', 'ml-3');
+    }
+    // const modalTweetBtn = document.getElementById('modal-tweet-submit-button')
+    // function modalInputEmptyOrNot() {
+    //     if (formData.has('file') || maincontent.value.length !== 0) {
+    //         modalTweetBtn.disabled = false;
+    //     } else {
+    //         modalTweetBtn.disabled = true;
+    //     }
+    // }
+    // if (maincontent != null) {
+    //     maincontent.setAttribute('onkeyup', 'modalInputEmptyOrNot()');
+    // }
+
+
+</script>
+<script>
+    // Get the modal element
+    var modal = $("#tweetFormModal");
+
+    // Get the form element
+    var form = $("#tweetFormModalForm");
+
+    // Get the close button element
+    var closeButton = $("#closeButton");
+
+    // Add an event listener to the close button
+    closeButton.on("click", function (event) {
+        // Show a confirmation prompt
+        var confirmation = confirm("Do you want to save the for contenyt");
+
+        if (confirmation) {
+            form[0].reset(); // use [0] to access the raw DOM element
+        }
+    })
+
 </script>
 
 {% endblock extra_js %}
