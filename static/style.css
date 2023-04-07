@@ -263,3 +263,40 @@ color:#1da1f2
 .trending_item:hover{
   background-color:rgb(240, 240, 240) ;
 }
+
+.confirmation-prompt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.confirmation-message {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.confirmation-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmation-buttons button {
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.confirmation-buttons button:hover {
+  background-color: #eaeaea;
+}

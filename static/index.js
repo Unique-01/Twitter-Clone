@@ -14,7 +14,7 @@ const tweetFormModal = document.getElementById('tweetFormModal');
 const tweetFormModalForm = document.getElementById('tweetFormModalForm')
 const replyForm = document.getElementById('reply-form')
 const tweetFormFieldContainer = document.getElementById('form-field-container');
-const formData = new FormData();
+let formData = new FormData();
 const fileObjects = []; // Array to store the File objects
 const tweetDisplay = document.getElementById('tweet-display');
 const forYouTweet = document.getElementById('for-you');
@@ -303,5 +303,40 @@ const imageContainers = document.querySelectorAll('.image-container');
 
   // Add an event listener to each image container element that listens for changes to its child elements
 imageContainers.forEach(container => container.addEventListener('DOMSubtreeModified', tweetImage));
+
+
+document.getElementById("closeButton").addEventListener("click", function (event) {
+  event.preventDefault();
+  if ($('#modal-form-content textarea').val().trim() === "" && formData.entries().next().done) {
+      $('#tweetFormModal').modal('hide');
+      return;
+  }
+  // Show confirm modal
+  $('#confirmModal').modal('show');
+
+  // Handle Save button click
+  document.getElementById("confirmModalSaveButton").addEventListener("click", function () {
+      // Save form content
+      // Close confirm modal and tweet form modal
+      $('#confirmModal').modal('hide');
+      $('#tweetFormModal').modal('hide');
+  });
+
+  // Handle Discard button click
+  document.getElementById("confirmModalDiscardButton").addEventListener("click", function () {
+      // Clear form content
+      //$('#modal-form-content').find(':input').val('');
+      $('#modal-form-content textarea').val('');
+      $('#modal-file-input').val('');
+      $('#modal-preview-container').empty();
+
+      // Close confirm modal and tweet form modal
+      $('#confirmModal').modal('hide');
+      $('#tweetFormModal').modal('hide');
+
+      formData = new FormData();
+      modalInputEmptyOrNot()
+  });
+});
 
 

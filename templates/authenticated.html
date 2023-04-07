@@ -28,6 +28,7 @@
     <div id="tweet-display"></div>
     <div class="content-section" id="for-you">{% include "for-you.html" %}</div>
     <div class="content-section" id="following">{% include "following.html" %}</div>
+    {% include "tweet_form_modal.html" %}
 </div>
 
 {% endblock maincontent %}
@@ -84,24 +85,40 @@
 
 </script>
 <script>
-    // Get the modal element
-    var modal = $("#tweetFormModal");
+    // Add event listener to X button
+    // document.getElementById("closeButton").addEventListener("click", function (event) {
+    //     event.preventDefault();
+    //     if ($('#modal-form-content textarea').val().trim() === "" && formData.entries().next().done) {
+    //         $('#tweetFormModal').modal('hide');
+    //         return;
+    //     }
+    //     // Show confirm modal
+    //     $('#confirmModal').modal('show');
 
-    // Get the form element
-    var form = $("#tweetFormModalForm");
+    //     // Handle Save button click
+    //     document.getElementById("confirmModalSaveButton").addEventListener("click", function () {
+    //         // Save form content
+    //         // Close confirm modal and tweet form modal
+    //         $('#confirmModal').modal('hide');
+    //         $('#tweetFormModal').modal('hide');
+    //     });
 
-    // Get the close button element
-    var closeButton = $("#closeButton");
+    //     // Handle Discard button click
+    //     document.getElementById("confirmModalDiscardButton").addEventListener("click", function () {
+    //         // Clear form content
+    //         //$('#modal-form-content').find(':input').val('');
+    //         $('#modal-form-content textarea').val('');
+    //         $('#modal-file-input').val('');
+    //         $('#modal-preview-container').empty();
 
-    // Add an event listener to the close button
-    closeButton.on("click", function (event) {
-        // Show a confirmation prompt
-        var confirmation = confirm("Do you want to save the for contenyt");
+    //         // Close confirm modal and tweet form modal
+    //         $('#confirmModal').modal('hide');
+    //         $('#tweetFormModal').modal('hide');
 
-        if (confirmation) {
-            form[0].reset(); // use [0] to access the raw DOM element
-        }
-    })
+    //         formData = new FormData();
+    //         modalInputEmptyOrNot()
+    //     });
+    // });
 
 </script>
 
