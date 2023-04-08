@@ -1,0 +1,21 @@
+
+const seen_by = document.getElementById('id_seen_by');
+const seenByContainer = document.getElementById('seen_by_container')
+const modalSeenByContainer = document.getElementById('modal_seen_by_container')
+const content = document.getElementById('id_content');
+const tweetBtn = document.getElementById('tweet-submit-button');
+const imageDiv = document.getElementById('preview-container');
+const tweetForm = document.getElementById('tweetForm');
+const tweetFormModal = document.getElementById('tweetFormModal');
+const tweetFormModalForm = document.getElementById('tweetFormModalForm')
+const replyForm = document.getElementById('reply-form')
+const tweetFormFieldContainer = document.getElementById('form-field-container');
+let formData = new FormData();
+const fileObjects = []; // Array to store the File objects
+const tweetDisplay = document.getElementById('tweet-display');
+const forYouTweet = document.getElementById('for-you');
+const modalFormContent = document.getElementById('modal-form-content')
+const modalcontent = modalFormContent.querySelector('#id_content')
+const modalSeenBy = modalSeenByContainer.querySelector('#id_seen_by')
+const modalTweetBtn = document.getElementById('modal-tweet-submit-button');
+const imageContainers = document.querySelectorAll('.image-container');
