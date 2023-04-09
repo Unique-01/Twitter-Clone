@@ -9,14 +9,14 @@
     <section class="row ml-2 " id="section">
         <div class="col-md-3 ml-4-5 ">
             <a href="" class="btn btn-light rounded-circle ml-1 py-2">
-                <img src="{% static 'twitter.svg' %}"
+                <img src="{% static 'img/twitter.svg' %}"
                      alt="twitter"
                      height="38"
                      width="38"
                      class=""/>
             </a>
             <br />
-            <div class="">
+            <div>
                 <a href="{{ index }} "
                    class=" btn btn-light rounded-pill big-text px-3 {% if request.path == index %}font-weight-bold{% endif %}"><i class="fa-solid fa-house"> </i>&nbsp;&nbsp;&nbsp;&nbsp;Home</a>
                 <br />
@@ -28,8 +28,11 @@
                 <br />
                 <a href="" class="mt-1 btn btn-light rounded-pill big-text px-3"><i class="fa-solid fa-ellipsis"></i>&nbsp;&nbsp;&nbsp;&nbsp;More</a>
             </div>
-            <button class=" btn blue rounded-pill p-2 d-flex justify-content-center width mt-3 w-100 " type="button" data-toggle="modal" data-target="#tweetFormModal" >
-                <span class=" text-white font-weight-bold">Tweet</span> 
+            <button class=" btn blue rounded-pill p-2 d-flex justify-content-center width mt-3 w-100 "
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#tweetFormModal">
+                <span class=" text-white font-weight-bold">Tweet</span>
             </button>
             <div>
                 <a tabindex="0"
@@ -41,7 +44,7 @@
                    data-placement="top"
                    class="btn btn-light rounded-pill d-flex align-items-center justify-content-between width mt-7 py-2 pb-3">
                 <div>
-                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'img/user_img.png' %}{% endif %}"
                          alt="{{ user.username }}"
                          class="rounded-circle "
                          height="40"
@@ -68,7 +71,7 @@
     </div>
     <div class=" pl-4 independent-scroll left-pane">
         {% block 'left-search' %}
-            <div class="">
+            <div>
                 <form action="{% url 'search' %}" method="get" class=" pl-1">
                     <div class="form-control rounded-pill search pl-4  border-0 w-100">
                         <i class="fa fa-search"></i>
@@ -101,19 +104,4 @@
         </div>
     </div>
 </section>
-<script>
-    const trendingItems = document.querySelectorAll('.trending_item');
-    const trendingLinks = document.querySelectorAll('.trending-link');
-    for (let i = 0; i < trendingItems.length; i++) {
-        const trendingItem = trendingItems[i];
-        const trendingLink = trendingLinks[i].value;
-
-        trendingItem.addEventListener('click', function () {
-            window.location.href = trendingLink
-        })
-
-    }
-
-</script>
-
 {% endblock content %}

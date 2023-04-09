@@ -1,4 +1,4 @@
-{% extends 'authenticated-base.html' %}
+{% extends "authenticated-base.html" %}
 {% load static %}
 {% block head_title %}
     {{ tweet.author.get_full_name }} on Twitter
@@ -18,7 +18,7 @@
             <div class="d-flex align-items-center">
                 <div>
                     <a href="{% url 'profile' tweet.author.username %}">
-                        <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                        <img src="{% if tweet.author.profile.profile_picture %}{{ tweet.author.profile.profile_picture.url }}{% else %}{% static 'img/user_img.png' %}{% endif %}"
                              alt="{{ tweet.author.username }}"
                              class="rounded-circle mt-2"
                              height="45"
@@ -70,7 +70,7 @@
         <div>{% include "reply_form.html" %}</div>
         <div id="replyDiv">
             {% for reply in tweet.replies.all %}
-            {% include 'reply.html' %}
+                {% include "reply.html" %}
             {% endfor %}
         </div>
     </div>

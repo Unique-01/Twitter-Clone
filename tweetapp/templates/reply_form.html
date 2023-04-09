@@ -3,7 +3,7 @@
     <form action="" method="post" class="d-flex" id="reply-form" enctype="multipart/form-data">
         {% csrf_token %}
         <a href="{% url 'profile' request.user.username %}">
-            <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+            <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'img/user_img.png' %}{% endif %}"
                 alt="{{ user.username }}" class="rounded-circle mt-2" height="45" width="45" />
         </a>
         <div class="pt-2 d-flex" id="formcontentdiv">

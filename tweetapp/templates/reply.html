@@ -3,7 +3,7 @@
     <div class="d-flex">
         <div>
             <a href="{% url 'profile' reply.author.username %}">
-                <img src="{% if reply.author.profile.profile_picture %}{{ reply.author.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                <img src="{% if reply.author.profile.profile_picture %}{{ reply.author.profile.profile_picture.url }}{% else %}{% static 'img/user_img.png' %}{% endif %}"
                      alt="{{ reply.author.username }}"
                      class="rounded-circle mt-2"
                      height="45"

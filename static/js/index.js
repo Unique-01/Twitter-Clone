@@ -25,6 +25,10 @@ const modalPreviewContainer = getElement('modal-preview-container');
 const fileInput = getElement('file-input');
 const modalFileInput = getElement('modal-file-input');
 const maxUploads = 4;
+const trendingItems = document.querySelectorAll('.trending_item');
+const trendingLinks = document.querySelectorAll('.trending-link');
+const tweetContainers = document.querySelectorAll('.tweet-container');
+const detailUrls = document.querySelectorAll('.tweet-link');
 
 function defaultTweets() {
     tweetDisplay.innerHTML = forYouTweet.innerHTML
@@ -51,6 +55,19 @@ function updateTweetBtnStatus() {
 
 if (content != null) {
     content.addEventListener('input', updateTweetBtnStatus);
+    seenByContainer.classList.add('hidden');
+    content.onclick = function () {
+        seenByContainer.classList.remove('hidden');
+        seen_by.className = '';
+        seen_by.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'py-0', 'pl-1', 'ml-3');
+        tweetFormFieldContainer.classList.add('border-bottom')
+    };
+    window.onload = function () {
+        modalFormContent.style.height = "100px"
+        modalFormContent.focus;
+        modalSeenBy.className = '';
+        modalSeenBy.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'pl-1', 'ml-3');
+    }
 }
 
 if (modalcontent != null) {
@@ -256,5 +273,26 @@ $(document).on('click', '#closeButton', function (event) {
         updateTweetBtnStatus();
     });
 });
+
+
+for (let i = 0; i < trendingItems.length; i++) {
+    const trendingItem = trendingItems[i];
+    const trendingLink = trendingLinks[i].value;
+
+    trendingItem.addEventListener('click', function () {
+        window.location.href = trendingLink
+    })
+
+}
+
+for (let i = 0; i < tweetContainers.length; i++) {
+    const tweetContainer = tweetContainers[i];
+    const tweetDetailUrl = detailUrls[i].value;
+
+    tweetContainer.addEventListener('click', () => {
+        window.location.href = tweetDetailUrl;
+    });
+}
+
 
 

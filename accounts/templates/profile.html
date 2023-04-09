@@ -24,12 +24,12 @@
         <div>
             <div class="">
                 <div class="parent">
-                    <img src=" {% if user.profile.cover_photo %} {{ user.profile.cover_photo.url }} {% else %} {% static 'gray_img.png' %} {% endif %}"
+                    <img src=" {% if user.profile.cover_photo %} {{ user.profile.cover_photo.url }} {% else %} {% static 'img/gray_img.png' %} {% endif %}"
                          alt="."
                          width="100%"
                          height="200px"
                          class="cover_image"/>
-                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
+                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'img/user_img.png' %}{% endif %}"
                          alt="{{ user.username }}"
                          class="rounded-circle profile_image"
                          height="140"

@@ -4,17 +4,16 @@
       method="post"
       enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="" id="form-field-container">
-        <div id="seen_by_container">{{tweet_form.seen_by|as_crispy_field}}</div>
-        <div>{{tweet_form.content|as_crispy_field}}</div>
+    <div id="form-field-container">
+        <div id="seen_by_container">{{ tweet_form.seen_by|as_crispy_field }}</div>
+        <div>{{ tweet_form.content|as_crispy_field }}</div>
     </div>
-    <div class="">
+    <div>
         <div class="container">
             <div id="preview-container"></div>
         </div>
         <div class="d-flex align-items-center justify-content-between py-2 pl-3">
             <label for="file-input" class="file-label">
-                {% comment %} <i class="fas fa-camera"></i> {% endcomment %}
                 <i class="fa-regular fa-image"></i>
                 <input type="file"
                        id="file-input"
@@ -23,11 +22,12 @@
                        name="file"
                        multiple/>
             </label>
-            <button type="submit" class="btn blue rounded-pill text-white px-3  font-weight-bold"
+            <button type="submit"
+                    class="btn blue rounded-pill text-white px-3  font-weight-bold"
                     id="tweet-submit-button"
-                    disabled>Tweet</button>
-
-                    
+                    disabled>
+                Tweet
+            </button>
         </div>
     </div>
 </form>

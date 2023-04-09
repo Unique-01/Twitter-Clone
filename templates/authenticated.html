@@ -1,125 +1,41 @@
 {% extends "authenticated-base.html" %}
 {% load static %}
 {% block maincontent %}
-<div class="">
-    <div class="pt-3 border-bottom sticky-top transparent-bg px-3">
-        <h4 class="mb-2 home font-weight-bold">Home</h4>
-        <div class="row ">
-            <button class="forfollow btn col-md-6 p-2 font-weight-bold" data-section="for-you"
-                onclick="changeDiv(this)">
-                For
-                you
-            </button>
-            <button class="forfollow btn col-md-6 p-3 font-weight-bold" data-section="following"
-                onclick="changeDiv(this)">
-                Following
-            </button>
+    <div>
+        <div class="pt-3 border-bottom sticky-top transparent-bg px-3">
+            <h4 class="mb-2 home font-weight-bold">Home</h4>
+            <div class="row ">
+                <button class="forfollow btn col-md-6 p-2 font-weight-bold"
+                        data-section="for-you"
+                        onclick="changeDiv(this)">
+                    For
+                    you
+                </button>
+                <button class="forfollow btn col-md-6 p-3 font-weight-bold"
+                        data-section="following"
+                        onclick="changeDiv(this)">
+                    Following
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="d-flex pt-2 border-bottom ">
-        <div class="">
-            <a href="{% url 'profile' request.user.username %}">
-                <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'user_img.png' %}{% endif %}"
-                    alt="{{ user.username }}" class="rounded-circle mt-2" height="45" width="45" />
-            </a>
+        <div class="d-flex pt-2 border-bottom ">
+            <div>
+                <a href="{% url 'profile' request.user.username %}">
+                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'img/user_img.png' %}{% endif %}"
+                         alt="{{ user.username }}"
+                         class="rounded-circle mt-2"
+                         height="45"
+                         width="45"/>
+                </a>
+            </div>
+            {% include "tweet_form.html" %}
         </div>
-        {% include 'tweet_form.html' %}
+        <div id="tweet-display"></div>
+        <div class="content-section" id="for-you">{% include "for-you.html" %}</div>
+        <div class="content-section" id="following">{% include "following.html" %}</div>
+        {% include "tweet_form_modal.html" %}
     </div>
-    <div id="tweet-display"></div>
-    <div class="content-section" id="for-you">{% include "for-you.html" %}</div>
-    <div class="content-section" id="following">{% include "following.html" %}</div>
-    {% include "tweet_form_modal.html" %}
-</div>
-
 {% endblock maincontent %}
 {% block extra_js %}
-<script>
-    defaultTweets();
-</script>
-<script>
-    var shuffled_tweets = JSON.parse('{{ shuffled_tweets_json|escapejs }}');
-    console.log(shuffled_tweets)
-    const tweetContainers = document.querySelectorAll('.tweet-container');
-    const detailUrls = document.querySelectorAll('.tweet-link');
-    console.log(tweetContainers)
-
-    for (let i = 0; i < tweetContainers.length; i++) {
-        const tweetContainer = tweetContainers[i];
-        const tweetDetailUrl = detailUrls[i].value;
-
-        tweetContainer.addEventListener('click', () => {
-            window.location.href = tweetDetailUrl;
-        });
-    }
-</script>
-<script>
-    // const modalFormContent = document.getElementById('modal-form-content')
-    // const maincontent = modalFormContent.querySelector('#id_content')
-
-    seenByContainer.classList.add('hidden');
-    content.onclick = function () {
-        seenByContainer.classList.remove('hidden');
-        seen_by.className = '';
-        seen_by.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'py-0', 'pl-1', 'ml-3');
-        tweetFormFieldContainer.classList.add('border-bottom')
-    };
-    // const modalSeenBy = modalSeenByContainer.querySelector('#id_seen_by')
-    window.onload = function () {
-        modalFormContent.style.height = "100px"
-        modalFormContent.focus;
-        modalSeenBy.className = '';
-        modalSeenBy.classList.add('rounded-pill', 'seen_by', 'font-weight-bold', 'pl-1', 'ml-3');
-    }
-    // const modalTweetBtn = document.getElementById('modal-tweet-submit-button')
-    // function modalInputEmptyOrNot() {
-    //     if (formData.has('file') || maincontent.value.length !== 0) {
-    //         modalTweetBtn.disabled = false;
-    //     } else {
-    //         modalTweetBtn.disabled = true;
-    //     }
-    // }
-    // if (maincontent != null) {
-    //     maincontent.setAttribute('onkeyup', 'modalInputEmptyOrNot()');
-    // }
-
-
-</script>
-<script>
-    // Add event listener to X button
-    // document.getElementById("closeButton").addEventListener("click", function (event) {
-    //     event.preventDefault();
-    //     if ($('#modal-form-content textarea').val().trim() === "" && formData.entries().next().done) {
-    //         $('#tweetFormModal').modal('hide');
-    //         return;
-    //     }
-    //     // Show confirm modal
-    //     $('#confirmModal').modal('show');
-
-    //     // Handle Save button click
-    //     document.getElementById("confirmModalSaveButton").addEventListener("click", function () {
-    //         // Save form content
-    //         // Close confirm modal and tweet form modal
-    //         $('#confirmModal').modal('hide');
-    //         $('#tweetFormModal').modal('hide');
-    //     });
-
-    //     // Handle Discard button click
-    //     document.getElementById("confirmModalDiscardButton").addEventListener("click", function () {
-    //         // Clear form content
-    //         //$('#modal-form-content').find(':input').val('');
-    //         $('#modal-form-content textarea').val('');
-    //         $('#modal-file-input').val('');
-    //         $('#modal-preview-container').empty();
-
-    //         // Close confirm modal and tweet form modal
-    //         $('#confirmModal').modal('hide');
-    //         $('#tweetFormModal').modal('hide');
-
-    //         formData = new FormData();
-    //         modalInputEmptyOrNot()
-    //     });
-    // });
-
-</script>
-
+    <script>defaultTweets();</script>
 {% endblock extra_js %}
